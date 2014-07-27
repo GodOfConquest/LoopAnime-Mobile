@@ -26,15 +26,15 @@ public class AnimeDbHelper extends SQLiteOpenHelper {
                 AnimeEntry.COLUMN_SERVER_ID + " INTEGER NOT NULL, " +
                 AnimeEntry.COLUMN_POSTER + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_GENRES + " TEXT NOT NULL, " +
-                AnimeEntry.COLUMN_START_TIME + " TEXT NOT NULL, " +
-                AnimeEntry.COLUMN_END_TIME + " TEXT NOT NULL, " +
+                AnimeEntry.COLUMN_START_TIME + " TEXT , " +
+                AnimeEntry.COLUMN_END_TIME + " TEXT , " +
                 AnimeEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_PLOT_SUMMERY + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_RATING + " INTEGER NOT NULL, " +
                 AnimeEntry.COLUMN_STATUS + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_RUNNING_TIME + " TEXT NOT NULL, " +
-                AnimeEntry.COLUMN_RATING_UP + "INTEGER NOT NULL, " +
-                AnimeEntry.COLUMN_RATING_DOWN + "INTEGER NOT NULL, " +
+                AnimeEntry.COLUMN_RATING_UP + " INTEGER NOT NULL, " +
+                AnimeEntry.COLUMN_RATING_DOWN + " INTEGER NOT NULL, " +
                 "UNIQUE (" + AnimeEntry.COLUMN_SERVER_ID + ") ON CONFLICT REPLACE" +
                 " );";
 
