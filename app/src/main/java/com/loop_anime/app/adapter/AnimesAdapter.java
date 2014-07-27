@@ -46,12 +46,12 @@ public class AnimesAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         String titleStr = cursor.getString(AnimesFragment.COL_TITLE);
         viewHolder.titleText.setText(titleStr);
-        String subTitleStr = cursor.getString(AnimesFragment.COL_PLOT_SUMMERY);
-        viewHolder.subtitleText.setText(subTitleStr);
+        viewHolder.subtitleText.setText(cursor.getString(AnimesFragment.COL_START_TIME));
         String imageUrlStr = cursor.getString(AnimesFragment.COL_POSTER);
         imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
         viewHolder.posterImage.setDefaultImageResId(android.R.drawable.ic_menu_gallery);
         viewHolder.posterImage.setImageUrl(imageUrlStr, imageLoader);
+        viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
     }
 
 
@@ -61,11 +61,13 @@ public class AnimesAdapter extends CursorAdapter {
         NetworkImageView posterImage;
         TextView titleText;
         TextView subtitleText;
+        TextView statusText;
 
         public ViewHolder(View view) {
             posterImage = (NetworkImageView) view.findViewById(R.id.image_anime_poster);
             titleText = (TextView) view.findViewById(R.id.text_anime_title);
             subtitleText = (TextView) view.findViewById(R.id.text_anime_description);
+            statusText = (TextView) view.findViewById(R.id.text_anime_status);
         }
     }
 
