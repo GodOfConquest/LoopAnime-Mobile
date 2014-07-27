@@ -1,9 +1,7 @@
 package com.loop_anime.app.api;
 
-import com.loop_anime.app.api.model.Anime;
-
-import java.util.List;
-
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
 
 /**
@@ -11,24 +9,11 @@ import retrofit.http.POST;
  */
 public interface API {
 
+    public static final String BASE_URL = "http://www.loop-anime.com:8080";
+
+    @FormUrlEncoded
     @POST("/animes/list-animes.json")
-    AnimeResponse animes();
-
-    class AnimeResponse {
-
-        Payload payload;
-
-        public Payload getPayload() {
-            return payload;
-        }
+    AnimeResponse animes(@Field("skip") int skip, @Field("limit") int limit);
 
 
-    }
-
-    class Payload {
-            List<Anime> animes;
-            public List<Anime> getAnimes() {
-                return animes;
-            }
-    }
 }

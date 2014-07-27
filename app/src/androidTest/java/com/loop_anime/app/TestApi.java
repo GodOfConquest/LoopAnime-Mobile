@@ -1,14 +1,8 @@
 package com.loop_anime.app;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
-import com.loop_anime.app.api.API;
-import com.loop_anime.app.api.model.Anime;
-
-import java.util.List;
-
-import retrofit.RestAdapter;
+import com.loop_anime.app.service.AnimeService;
 
 /**
  * Created by allan on 14/7/27.
@@ -19,16 +13,5 @@ public class TestApi extends AndroidTestCase {
 
     public void testAnime() throws Throwable {
 
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(BASE_URL)
-                .build();
-
-        API api = restAdapter.create(API.class);
-
-        List<Anime> animes = api.animes().getPayload().getAnimes();
-
-        for (Anime anime : animes) {
-            Log.v(this.getClass().getSimpleName(), "Anime: " + anime.getTitle());
-        }
     }
 }

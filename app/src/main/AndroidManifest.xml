@@ -20,6 +20,7 @@
         <provider
             android:authorities="com.loop_anime.app"
             android:name=".provider.AnimeProvider"/>
+        <service android:name=".service.AnimeService"/>
     </application>
 
 </manifest>
