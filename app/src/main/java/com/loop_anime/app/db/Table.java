@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
  */
 public class Table {
 
-    public static final String CONTENT_AUTHORITY = "com.loop_anime.app.db";
+    public static final String CONTENT_AUTHORITY = "com.loop_anime.app";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
@@ -51,8 +51,18 @@ public class Table {
 
         public static final String COLUMN_RATING_DOWN = "rating_down";
 
-        public Uri buildAnimeUri(long id) {
+        public static Uri buildAnimeUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
+        public static Uri buildAnimeByServerIdUri(long serverId) {
+            Uri build = CONTENT_URI.buildUpon().appendPath(COLUMN_SERVER_ID).appendPath(String.valueOf(serverId)).build();
+            return build;
+        }
+
+        public static String getServerIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(2);
+        }
+
     }
 }

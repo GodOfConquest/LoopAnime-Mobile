@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.loop_anime.app"
+            android:name=".provider.AnimeProvider"/>
     </application>
 
 </manifest>
