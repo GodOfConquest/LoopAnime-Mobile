@@ -32,6 +32,7 @@ public class AnimeDbHelper extends SQLiteOpenHelper {
                 AnimeEntry.COLUMN_PLOT_SUMMERY + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_RATING + " INTEGER NOT NULL, " +
                 AnimeEntry.COLUMN_STATUS + " TEXT NOT NULL, " +
+                AnimeEntry.COLUMN_RUNNING_TIME + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_RATING_UP + "INTEGER NOT NULL, " +
                 AnimeEntry.COLUMN_RATING_DOWN + "INTEGER NOT NULL, " +
                 "UNIQUE (" + AnimeEntry.COLUMN_SERVER_ID + ") ON CONFLICT REPLACE" +
