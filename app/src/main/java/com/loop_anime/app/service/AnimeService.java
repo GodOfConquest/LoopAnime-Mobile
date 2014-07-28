@@ -19,20 +19,35 @@ import static com.loop_anime.app.db.Table.AnimeEntry;
 public class AnimeService extends AbstractIntentService {
 
 
+    private API api;
     private static final String EXTRA_SKIP = "EXTRA_SKIP";
     private static final String EXTRA_LIMIT = "EXTRA_LIMIT";
     private static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
+    private static final String EXTRA_SERVER_ID = "EXTRA_SERVER_ID";
 
     public AnimeService() {
         super("AnimeService");
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        api = APIFactory.instence();
+    }
 
     public static Intent requestAnimes(Context context, int skip, int limit) {
         final Intent intent = new Intent(context, AnimeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.ANIME);
         intent.putExtra(EXTRA_SKIP, skip);
         intent.putExtra(EXTRA_LIMIT, limit);
+        context.startService(intent);
+        return intent;
+    }
+
+    public static Intent requestAnimeWithServerId(Context context, int serverId) {
+        final Intent intent = new Intent(context, AnimeService.class);
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.ANIME_BY_SERVER_ID);
+        intent.putExtra(EXTRA_SERVER_ID, serverId);
         context.startService(intent);
         return intent;
     }
@@ -44,16 +59,25 @@ public class AnimeService extends AbstractIntentService {
             case ANIME:
                 requestAnimes(intent.getIntExtra(EXTRA_SKIP, 0), intent.getIntExtra(EXTRA_LIMIT, 0));
                 break;
+            case ANIME_BY_SERVER_ID:
+                requestAnimeWithServerId(intent.getIntExtra(EXTRA_SERVER_ID, -1));
             default:
                 throw new UnsupportedOperationException("Unknown request: " + request);
         }
+    }
+
+    private void requestAnimeWithServerId(int serverId) {
+        //TODO: api request
+        List<Anime> animes = api.animesByServerId(serverId).getPayload().getAnimes();
+        Anime anime = animes.get(0);
+        ContentValues values = getAnimeContentValues(anime);
+        getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
     }
 
     private void requestAnimes(int skip, int limit) {
         if (skip == 0) {
             getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
         }
-        API api = APIFactory.instence();
         List<Anime> animes = api.animes(skip, limit).getPayload().getAnimes();
         Log.v(getClass().getSimpleName(), "Anime Received: " + animes.size());
         //TODO: use bulkInsert instead
@@ -80,5 +104,5 @@ public class AnimeService extends AbstractIntentService {
         return values;
     }
 
-    private enum REQUESTS {ANIME};
+    private enum REQUESTS {ANIME_BY_SERVER_ID, ANIME};
 }

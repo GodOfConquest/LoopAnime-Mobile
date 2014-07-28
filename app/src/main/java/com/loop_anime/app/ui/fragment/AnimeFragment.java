@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.loop_anime.app.R;
+import com.loop_anime.app.service.AnimeService;
 
 /**
  * Created by allan on 14/7/28.

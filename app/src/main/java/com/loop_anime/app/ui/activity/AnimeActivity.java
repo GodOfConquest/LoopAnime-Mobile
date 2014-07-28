@@ -37,6 +37,7 @@ public class AnimeActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         animeServerId = getIntent().getIntExtra(EXTRA_ANIME_SERVER_ID, -1);
         setContentView(R.layout.activity_anime);
+        setTitle("");
         if (savedInstanceState == null) {
             AnimeFragment animeFragment = new AnimeFragment();
             Bundle bundle = new Bundle();
