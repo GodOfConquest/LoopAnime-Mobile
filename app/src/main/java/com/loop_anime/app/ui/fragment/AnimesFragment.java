@@ -10,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.loop_anime.app.R;
-import com.loop_anime.app.adapter.AnimesAdapter;
+import com.loop_anime.app.ui.adapter.AnimesAdapter;
 import com.loop_anime.app.service.AnimeService;
 
 import static com.loop_anime.app.db.Table.AnimeEntry;
@@ -74,6 +73,7 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_animes, null, false);
         mListView = (ListView) mView.findViewById(R.id.list_animes);
+        mListView.setEmptyView(mView.findViewById(R.id.list_empty_view));
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
         mAdapter = new AnimesAdapter(getActivity(), null, 0);
         mListView.setAdapter(mAdapter);

@@ -15,7 +15,7 @@ import com.loop_anime.app.R;
 import com.loop_anime.app.ui.fragment.AnimesFragment;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

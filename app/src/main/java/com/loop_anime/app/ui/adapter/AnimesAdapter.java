@@ -1,22 +1,17 @@
-package com.loop_anime.app.adapter;
+package com.loop_anime.app.ui.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.loop_anime.app.R;
-import com.loop_anime.app.api.model.Anime;
+import com.loop_anime.app.ui.activity.AbstractActivity;
 import com.loop_anime.app.ui.fragment.AnimesFragment;
-import com.loop_anime.app.util.BitmapLruCache;
 import com.loop_anime.app.util.ImageUtil;
 
 /**
@@ -24,13 +19,9 @@ import com.loop_anime.app.util.ImageUtil;
  */
 public class AnimesAdapter extends CursorAdapter {
 
-    private ImageLoader.ImageCache imageCache;
-    private ImageLoader imageLoader;
 
     public AnimesAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
-        imageCache = new BitmapLruCache();
-        imageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
     }
 
     @Override
@@ -49,8 +40,7 @@ public class AnimesAdapter extends CursorAdapter {
         viewHolder.subtitleText.setText(cursor.getString(AnimesFragment.COL_START_TIME));
         String imageUrlStr = cursor.getString(AnimesFragment.COL_POSTER);
         imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
-        viewHolder.posterImage.setDefaultImageResId(android.R.drawable.ic_menu_gallery);
-        viewHolder.posterImage.setImageUrl(imageUrlStr, imageLoader);
+        viewHolder.posterImage.setImageUrl(imageUrlStr, ((AbstractActivity)context).getImageLoaderMemoryCache());
         viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
     }
 
