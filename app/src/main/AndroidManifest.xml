@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.loop_anime.app" >
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,10 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.loop_anime.app"
-            android:name=".provider.AnimeProvider"/>
-        <service android:name=".service.AnimeService"/>
+            android:name=".provider.AnimeProvider"
+            android:authorities="com.loop_anime.app" />
+
+        <service android:name=".service.AnimeService" />
+
+        <activity
+            android:name=".ui.activity.AnimeActivity"
+            android:label="@string/title_activity_anime"
+            android:parentActivityName=".ui.activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.loop_anime.app.ui.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

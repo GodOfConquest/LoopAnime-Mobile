@@ -1,6 +1,7 @@
 package com.loop_anime.app.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +12,27 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.loop_anime.app.R;
 import com.loop_anime.app.ui.activity.AbstractActivity;
+import com.loop_anime.app.ui.activity.AnimeActivity;
 import com.loop_anime.app.ui.fragment.AnimesFragment;
 import com.loop_anime.app.util.ImageUtil;
 
 /**
  * Created by allan on 14/7/27.
  */
-public class AnimesAdapter extends CursorAdapter {
+public class AnimesAdapter extends CursorAdapter implements View.OnClickListener {
 
+    private Context context;
 
     public AnimesAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
+        this.context = context;
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         View view = LayoutInflater.from(context).inflate(R.layout.animes_list_item_row, null, false);
         ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
         view.setTag(viewHolder);
         return view;
     }
@@ -42,12 +47,19 @@ public class AnimesAdapter extends CursorAdapter {
         imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
         viewHolder.posterImage.setImageUrl(imageUrlStr, ((AbstractActivity)context).getImageLoaderMemoryCache());
         viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
+        viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
+        view.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
+        AnimeActivity.startActivity(context, viewHolder.serverId, view);
     }
 
 
-
     public static class ViewHolder {
-
+        int serverId;
         NetworkImageView posterImage;
         TextView titleText;
         TextView subtitleText;

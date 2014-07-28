@@ -44,7 +44,7 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
     };
 
     public static final int COL_ID = 0;
-    public static final int COL_SERVER_ID_ = 1;
+    public static final int COL_SERVER_ID = 1;
     public static final int COL_POSTER = 2;
     public static final int COL_GENRES = 3;
     public static final int COL_START_TIME = 4;
