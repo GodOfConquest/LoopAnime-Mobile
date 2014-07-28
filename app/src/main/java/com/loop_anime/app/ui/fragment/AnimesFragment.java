@@ -15,12 +15,16 @@ import com.loop_anime.app.R;
 import com.loop_anime.app.ui.adapter.AnimesAdapter;
 import com.loop_anime.app.service.AnimeService;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 import static com.loop_anime.app.db.Table.AnimeEntry;
 
 /**
  * Created by allan on 14/7/27.
  */
-public class AnimesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AnimesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnRefreshListener {
 
     private static final int ANIME_LOADER = 0;
     private static final String[] ANIME_PROJECTION = new String[] {
@@ -52,26 +56,23 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
     public static final int COL_RUNNING_TIME = 10;
     public static final int COL_RATING_UP = 11;
     public static final int COL_RATING_DOWN = 12;
-    
-    private String[] mFromColumns = {
-            AnimeEntry.COLUMN_TITLE,
-            AnimeEntry.COLUMN_START_TIME
-    };
-    private int[] mToFields ={
-            R.id.text_anime_title,
-            R.id.text_anime_description
-    };
 
 
     private AnimesAdapter mAdapter;
 
     private View mView;
     private ListView mListView;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_animes, null, false);
+        mPullToRefreshLayout = (PullToRefreshLayout) mView.findViewById(R.id.ptr_layout);
+        ActionBarPullToRefresh.from(getActivity())
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
         mListView = (ListView) mView.findViewById(R.id.list_animes);
         mListView.setEmptyView(mView.findViewById(R.id.list_empty_view));
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
@@ -87,7 +88,6 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onStart() {
-        AnimeService.requestAnimes(getActivity(), 0, 0);
         super.onStart();
     }
 
@@ -117,5 +117,10 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mAdapter.swapCursor(null);
 
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        AnimeService.requestAnimes(getActivity(), 0, 0);
     }
 }

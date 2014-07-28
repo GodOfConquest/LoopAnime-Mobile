@@ -50,6 +50,9 @@ public class AnimeService extends AbstractIntentService {
     }
 
     private void requestAnimes(int skip, int limit) {
+        if (skip == 0) {
+            getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
+        }
         API api = APIFactory.instence();
         List<Anime> animes = api.animes(skip, limit).getPayload().getAnimes();
         Log.v(getClass().getSimpleName(), "Anime Received: " + animes.size());
