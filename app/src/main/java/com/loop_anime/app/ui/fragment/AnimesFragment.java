@@ -1,20 +1,19 @@
 package com.loop_anime.app.ui.fragment;
 
-import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.loop_anime.app.R;
-import com.loop_anime.app.ui.adapter.AnimesAdapter;
 import com.loop_anime.app.service.AnimeService;
+import com.loop_anime.app.service.ServiceReceiver;
+import com.loop_anime.app.ui.adapter.AnimesAdapter;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -81,7 +80,6 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
         mAdapter = new AnimesAdapter(getActivity(), null, 0);
         mListView.setAdapter(mAdapter);
-        AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
         return mView;
     }
 
@@ -99,6 +97,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         switch (i) {
             case ANIME_LOADER:
+                AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
                 return new CursorLoader(
                         getActivity(),
                         AnimeEntry.CONTENT_URI,
@@ -120,7 +119,6 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mAdapter.swapCursor(null);
-
     }
 
     @Override
@@ -135,6 +133,10 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-        Log.v("Receiver", String.valueOf(resultCode));
+        switch (resultCode) {
+            case ServiceReceiver.STATUS_ERROR:
+            case ServiceReceiver.STATUS_FINISHED:
+                mPullToRefreshLayout.setRefreshComplete();
+        }
     }
 }

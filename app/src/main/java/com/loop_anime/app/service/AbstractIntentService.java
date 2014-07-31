@@ -38,15 +38,16 @@ abstract public class AbstractIntentService extends IntentService{
             } else {
                 Log.e(LOG_TAG, "No Internet connection; Service exited.");
             }
-        }
-        if (NetworkUtil.isNetworkConnected(this)) {
-            try {
-                this.onHandleAPIIntent(intent);
-            } catch (Exception e) {
-                //TODO: send to receiver with ERROR_MSG
-            }
         } else {
-            Log.e(LOG_TAG, "No Internet connection; Service exited.");
+            if (NetworkUtil.isNetworkConnected(this)) {
+                try {
+                    this.onHandleAPIIntent(intent);
+                } catch (Exception e) {
+                    //TODO: send to receiver with ERROR_MSG
+                }
+            } else {
+                Log.e(LOG_TAG, "No Internet connection; Service exited.");
+            }
         }
     }
 
