@@ -35,8 +35,11 @@ public class AnimeService extends AbstractIntentService {
         api = APIFactory.instence();
     }
 
-    public static Intent requestAnimes(Context context, int skip, int limit) {
+    public static Intent requestAnimes(Context context, int skip, int limit, ServiceReceiver receiver) {
         final Intent intent = new Intent(context, AnimeService.class);
+        if (receiver != null) {
+            intent.putExtra(EXTRA_RECEIVER, receiver);
+        }
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.ANIME);
         intent.putExtra(EXTRA_SKIP, skip);
         intent.putExtra(EXTRA_LIMIT, limit);

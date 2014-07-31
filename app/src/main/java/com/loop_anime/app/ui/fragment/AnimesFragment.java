@@ -6,6 +6,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import static com.loop_anime.app.db.Table.AnimeEntry;
 /**
  * Created by allan on 14/7/27.
  */
-public class AnimesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnRefreshListener {
+public class AnimesFragment extends AbstractFragment implements LoaderManager.LoaderCallbacks<Cursor>, OnRefreshListener {
 
     private static final int ANIME_LOADER = 0;
     private static final String[] ANIME_PROJECTION = new String[] {
@@ -80,7 +81,7 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
         mAdapter = new AnimesAdapter(getActivity(), null, 0);
         mListView.setAdapter(mAdapter);
-        AnimeService.requestAnimes(getActivity(), 0, 0);
+        AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
         return mView;
     }
 
@@ -124,6 +125,16 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onRefreshStarted(View view) {
-        AnimeService.requestAnimes(getActivity(), 0, 0);
+        AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
+    }
+
+    @Override
+    public boolean enableReceiver() {
+        return true;
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        Log.v("Receiver", String.valueOf(resultCode));
     }
 }

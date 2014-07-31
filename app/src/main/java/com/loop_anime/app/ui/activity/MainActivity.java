@@ -18,6 +18,11 @@ import com.loop_anime.app.ui.fragment.AnimesFragment;
 public class MainActivity extends AbstractActivity {
 
     @Override
+    public boolean enableReceiver() {
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

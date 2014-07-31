@@ -33,6 +33,11 @@ public class AnimeActivity extends AbstractActivity {
     }
 
     @Override
+    public boolean enableReceiver() {
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         animeServerId = getIntent().getIntExtra(EXTRA_ANIME_SERVER_ID, -1);
