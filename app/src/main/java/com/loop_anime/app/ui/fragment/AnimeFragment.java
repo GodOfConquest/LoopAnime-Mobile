@@ -1,25 +1,51 @@
 package com.loop_anime.app.ui.fragment;
 
-import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.loop_anime.app.R;
+import com.loop_anime.app.db.Table;
 import com.loop_anime.app.service.AnimeService;
+import com.loop_anime.app.ui.activity.AbstractActivity;
+import com.loop_anime.app.util.ImageUtil;
 
 /**
  * Created by allan on 14/7/28.
  */
-public class AnimeFragment extends Fragment {
+public class AnimeFragment extends AbstractFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String LOG_TAG = AnimeFragment.class.getSimpleName();
 
+    private static final int LOAD_ANIME_SERVER_ID = 1;
+
     private static final String EXTRA_ANIME_SERVER_ID = "EXTRA_ANIME_SERVER_ID";
+    private static final String[] ANIME_PROJECTION = {
+            Table.AnimeEntry.COLUMN_POSTER,
+            Table.AnimeEntry.COLUMN_TITLE,
+            Table.AnimeEntry.COLUMN_PLOT_SUMMERY,
+            Table.AnimeEntry.COLUMN_START_TIME,
+            Table.AnimeEntry.COLUMN_END_TIME
+    };
 
     private int animeServerId = -1;
+    private TextView mTitleView;
+    private TextView mDescriptionView;
+    private TextView mStartDateView;
+    private TextView mEndDateView;
+    private NetworkImageView mPosterImageView;
+
+    @Override
+    public boolean enableReceiver() {
+        return true;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,14 +57,58 @@ public class AnimeFragment extends Fragment {
         if (animeServerId == -1) {
             throw new IllegalArgumentException("Anime Fragment don't receive Anime Server Id");
         }
+        getLoaderManager().initLoader(LOAD_ANIME_SERVER_ID, null, this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_anime, container, false);
-        TextView titleText = (TextView) rootView.findViewById(R.id.text_anime_title);
-        titleText.setText(String.valueOf(animeServerId));
+        mPosterImageView = (NetworkImageView) rootView.findViewById(R.id.image_anime_poster);
+        mTitleView = (TextView) rootView.findViewById(R.id.text_anime_title);
+        mDescriptionView = (TextView) rootView.findViewById(R.id.text_anime_description);
+        mStartDateView = (TextView) rootView.findViewById(R.id.text_anime_start_date);
+        mEndDateView = (TextView) rootView.findViewById(R.id.text_anime_end_date);
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        switch (i) {
+            case LOAD_ANIME_SERVER_ID:
+                AnimeService.requestAnimeWithServerId(getActivity(), mReceiver, animeServerId);
+                return new CursorLoader(getActivity(), Table.AnimeEntry.buildAnimeByServerIdUri(animeServerId),
+                        ANIME_PROJECTION,
+                        null,
+                        null,
+                        null);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        switch (cursorLoader.getId()) {
+            case LOAD_ANIME_SERVER_ID:
+                if (cursor.moveToFirst()) {
+                    mPosterImageView.setImageUrl(ImageUtil.getFullImageUrl(cursor.getString(0)),
+                            ((AbstractActivity)getActivity()).getImageLoaderMemoryCache());
+                    mTitleView.setText(cursor.getString(1));
+                    mDescriptionView.setText(cursor.getString(2));
+                    mStartDateView.setText(cursor.getString(3));
+                    mEndDateView.setText(cursor.getString(4));
+                }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+
     }
 }

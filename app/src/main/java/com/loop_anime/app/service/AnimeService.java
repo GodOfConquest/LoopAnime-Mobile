@@ -47,7 +47,7 @@ public class AnimeService extends AbstractIntentService {
         return intent;
     }
 
-    public static Intent requestAnimeWithServerId(Context context, int serverId) {
+    public static Intent requestAnimeWithServerId(Context context, ServiceReceiver receiver, int serverId) {
         final Intent intent = new Intent(context, AnimeService.class);
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.ANIME_BY_SERVER_ID);
         intent.putExtra(EXTRA_SERVER_ID, serverId);
