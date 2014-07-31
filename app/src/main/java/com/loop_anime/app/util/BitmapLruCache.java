@@ -43,15 +43,14 @@ public class BitmapLruCache extends LruCache<String, Bitmap> implements ImageLoa
     public void putBitmap(String url, Bitmap bitmap) {
         Log.v(LOG_TAG, "put " + url);
         Log.d(LOG_TAG, "Memory cache at " + (100.0 * size() / maxSize()) + "%");
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        //TODO: better way to downsize images according to the given size
-        float scaleWidth = .5f;
-        float scaleHeight = .5f;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix,
-                true);
+//        int width = bitmap.getWidth();
+//        int height = bitmap.getHeight();
+//        TODO: better way to downsize images according to the given size
+//        float scaleWidth = .5f;
+//        float scaleHeight = .5f;
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(scaleWidth, scaleHeight);
+//        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         put(url, bitmap);
     }
 }

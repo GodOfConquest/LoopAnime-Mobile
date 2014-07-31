@@ -3,30 +3,26 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/anime_list_perfered_height">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/card_bg"
+        android:layout_height="match_parent"
+        android:id="@+id/anime_list_item_container"
         android:layout_marginLeft="@dimen/space_large"
         android:layout_marginRight="@dimen/space_large"
-        android:layout_marginTop="@dimen/space_medium"
-        android:layout_marginBottom="@dimen/space_medium"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/space_small"
+        android:layout_marginBottom="@dimen/space_small" >
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/image_anime_poster"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/anime_list_row_image_width"
             android:layout_height="@dimen/anime_list_row_image_height"
-            android:layout_marginRight="@dimen/space_large"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/space_extra_large"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/space_large">
 
             <TextView
                 android:layout_width="match_parent"
@@ -35,20 +31,30 @@
                 android:ellipsize="end"
                 android:id="@+id/text_anime_title"
                 android:text="@string/lorem_ipsum_title"
-                android:textSize="20dp"
+                style="@android:style/TextAppearance.Small"
+                android:layout_marginTop="@dimen/space_medium"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/image_anime_poster"
                 android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_extra_small"
                 android:text="@string/lorem_ipsum_title"
+                style="@android:style/TextAppearance.Small"
+                android:layout_below="@id/text_anime_title"
+                android:layout_alignLeft="@id/text_anime_title"
                 android:id="@+id/text_anime_description"/>
 
             <TextView
                 android:id="@+id/text_anime_status"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_anime_description"
+                android:layout_alignLeft="@id/text_anime_title" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
+
 </FrameLayout>

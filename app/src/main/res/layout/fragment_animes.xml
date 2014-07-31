@@ -5,27 +5,14 @@
     android:id="@+id/ptr_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light_gray"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/list_animes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="0dp"
-        android:divider="@null" />
+        />
 
-    <ScrollView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/empty_view_height"
-            android:gravity="center"
-            android:text="@string/nothing_here"/>
-
-    </ScrollView>
+    <include layout="@layout/empty_view" />
 
 </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>

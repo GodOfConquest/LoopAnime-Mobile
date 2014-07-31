@@ -17,19 +17,23 @@
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/image_anime_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_large"
+            android:layout_height="@dimen/anime_list_row_image_height"
             android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/text_anime_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Large"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/text_anime_description"
+            android:layout_marginTop="@dimen/space_large"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.Small"
+            android:textStyle="italic"/>
 
 
         <TextView
