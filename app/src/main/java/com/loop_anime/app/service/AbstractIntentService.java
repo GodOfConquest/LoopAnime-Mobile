@@ -20,7 +20,11 @@ abstract public class AbstractIntentService extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
         if (NetworkUtil.isNetworkConnected(this)) {
-            this.onHandleAPIIntent(intent);
+            try {
+                this.onHandleAPIIntent(intent);
+            } catch (Exception e) {
+                //TODO: send to receiver with ERROR_MSG
+            }
         } else {
             Log.e(LOG_TAG, "No Internet connection; Service exited.");
         }
