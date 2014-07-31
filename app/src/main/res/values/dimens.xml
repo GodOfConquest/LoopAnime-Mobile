@@ -8,4 +8,5 @@
     <dimen name="anime_list_row_image_height">480dp</dimen>
     <dimen name="space_large">16dp</dimen>
     <dimen name="space_medium">8dp</dimen>
+    <dimen name="empty_view_height">500dp</dimen>
 </resources>

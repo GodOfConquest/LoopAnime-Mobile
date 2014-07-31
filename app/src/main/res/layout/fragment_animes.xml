@@ -15,11 +15,17 @@
         android:dividerHeight="0dp"
         android:divider="@null" />
 
-    <TextView
-        android:id="@+id/list_empty_view"
+    <ScrollView
+        android:id="@android:id/empty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/nothing_here"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/empty_view_height"
+            android:gravity="center"
+            android:text="@string/nothing_here"/>
+
+    </ScrollView>
 
 </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>

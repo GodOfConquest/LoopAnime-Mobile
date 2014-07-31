@@ -63,21 +63,24 @@ public class AnimesFragment extends Fragment implements LoaderManager.LoaderCall
     private View mView;
     private ListView mListView;
     private PullToRefreshLayout mPullToRefreshLayout;
+    private View mEmptyView;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_animes, null, false);
         mPullToRefreshLayout = (PullToRefreshLayout) mView.findViewById(R.id.ptr_layout);
+        mListView = (ListView) mView.findViewById(R.id.list_animes);
+        mEmptyView = mView.findViewById(android.R.id.empty);
+        mListView.setEmptyView(mEmptyView);
         ActionBarPullToRefresh.from(getActivity())
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefreshLayout);
-        mListView = (ListView) mView.findViewById(R.id.list_animes);
-        mListView.setEmptyView(mView.findViewById(R.id.list_empty_view));
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
         mAdapter = new AnimesAdapter(getActivity(), null, 0);
         mListView.setAdapter(mAdapter);
+        AnimeService.requestAnimes(getActivity(), 0, 0);
         return mView;
     }
 
