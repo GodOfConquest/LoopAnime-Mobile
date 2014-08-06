@@ -17,7 +17,8 @@
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/image_anime_poster"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/anime_list_row_image_height"
+            android:layout_height="wrap_content"
+            android:minHeight="400dp"
             android:scaleType="centerCrop"/>
 
         <TextView
