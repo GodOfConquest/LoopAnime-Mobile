@@ -11,13 +11,13 @@ import java.util.List;
 public class AnimeResponse {
 
     @SerializedName("payload")
-    animePayload payload;
+    AnimePayload payload;
 
-    public animePayload getPayload() {
+    public AnimePayload getPayload() {
         return payload;
     }
 
-    public class animePayload {
+    public class AnimePayload {
         List<Anime> animes;
 
         public List<Anime> getAnimes() {
