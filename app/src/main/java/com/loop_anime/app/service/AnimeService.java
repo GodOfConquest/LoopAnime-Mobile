@@ -78,16 +78,16 @@ public class AnimeService extends AbstractIntentService {
     }
 
     private void requestAnimes(int skip, int limit) {
+        List<Anime> animes = api.animes(skip, limit).getPayload().getAnimes();
         if (skip == 0) {
             getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
         }
-        List<Anime> animes = api.animes(skip, limit).getPayload().getAnimes();
-        Log.v(getClass().getSimpleName(), "Anime Received: " + animes.size());
-        //TODO: use bulkInsert instead
-        for (Anime anime : animes) {
-            ContentValues values = getAnimeContentValues(anime);
-            getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
+        ContentValues[] contentValueses = new ContentValues[animes.size()];
+        for (int i = 0; i < animes.size(); i++ ) {
+            ContentValues values = getAnimeContentValues(animes.get(i));
+            contentValueses[i] = values;
         }
+        getContentResolver().bulkInsert(AnimeEntry.CONTENT_URI, contentValueses);
     }
 
     private ContentValues getAnimeContentValues(Anime anime) {
