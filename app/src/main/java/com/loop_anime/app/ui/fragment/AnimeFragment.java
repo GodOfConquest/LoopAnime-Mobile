@@ -5,6 +5,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,8 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
             Table.AnimeEntry.COLUMN_TITLE,
             Table.AnimeEntry.COLUMN_PLOT_SUMMERY,
             Table.AnimeEntry.COLUMN_START_TIME,
-            Table.AnimeEntry.COLUMN_END_TIME
+            Table.AnimeEntry.COLUMN_END_TIME,
+            Table.AnimeEntry._ID
     };
 
     private int animeServerId = -1;
@@ -101,7 +103,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
                             ((AbstractActivity)getActivity()).getImageLoaderMemoryCache());
                     mTitleView.setText(cursor.getString(1));
                     mDescriptionView.setText(cursor.getString(2));
-                    mStartDateView.setText(cursor.getString(3));
+                    mStartDateView.setText(cursor.getString(5));
                     mEndDateView.setText(cursor.getString(4));
                 }
         }

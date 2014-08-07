@@ -97,7 +97,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         switch (i) {
             case ANIME_LOADER:
-                AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
+                AnimeService.requestAnimes(getActivity(), 0, 50, mReceiver);
                 return new CursorLoader(
                         getActivity(),
                         AnimeEntry.CONTENT_URI,
@@ -123,7 +123,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
 
     @Override
     public void onRefreshStarted(View view) {
-        AnimeService.requestAnimes(getActivity(), 0, 0, mReceiver);
+        AnimeService.requestAnimes(getActivity(), 0, 50, mReceiver);
     }
 
     @Override

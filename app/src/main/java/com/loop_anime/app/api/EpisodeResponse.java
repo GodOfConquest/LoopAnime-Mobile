@@ -19,21 +19,11 @@ public class EpisodeResponse {
 
     public class EpisodePayload {
 
-        @SerializedName("animes")
-        AnimesPayload animesPayload;
+        List<Episode> episodes;
 
-        public AnimesPayload getAnimesPayload() {
-            return animesPayload;
+        public List<Episode> getEpisodes() {
+            return episodes;
         }
 
-        public class AnimesPayload {
-
-            List<Episode> episodes;
-
-            public List<Episode> getEpisodes() {
-                return episodes;
-            }
-
-        }
     }
 }

@@ -36,7 +36,7 @@ public class Episode {
 
     private int ratingDown;
 
-    @SerializedName("animeInfo")
+    @SerializedName("anime")
     private AnimeInfo animeInfo;
 
     @SerializedName("season")

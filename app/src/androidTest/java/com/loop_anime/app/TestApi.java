@@ -18,8 +18,8 @@ import java.util.List;
 public class TestApi extends AndroidTestCase {
 
     public void testEpisode() throws Throwable {
-        EpisodeResponse recent = APIFactory.instence().episode(10, 0, "mostrated");
-        List<Episode> episodes = recent.getPayload().getAnimesPayload().getEpisodes();
+        EpisodeResponse recent = APIFactory.instence().episode(10, 0, null);
+        List<Episode> episodes = recent.getPayload().getEpisodes();
         for (Episode episode : episodes) {
             Log.v("EPISODE API", episode.getAnimeInfo().getAnimeTitle());
         }
