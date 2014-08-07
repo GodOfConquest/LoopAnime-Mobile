@@ -35,7 +35,7 @@ public class AnimeDbHelper extends SQLiteOpenHelper {
                 AnimeEntry.COLUMN_RUNNING_TIME + " TEXT NOT NULL, " +
                 AnimeEntry.COLUMN_RATING_UP + " INTEGER NOT NULL, " +
                 AnimeEntry.COLUMN_RATING_DOWN + " INTEGER NOT NULL, " +
-                "UNIQUE (" + AnimeEntry.COLUMN_SERVER_ID + ") ON CONFLICT REPLACE" +
+                "UNIQUE (" + AnimeEntry.COLUMN_SERVER_ID + ") ON CONFLICT IGNORE" +
                 " );";
 
         sqLiteDatabase.execSQL(SQL_CREATE_ANIME_TABLE);

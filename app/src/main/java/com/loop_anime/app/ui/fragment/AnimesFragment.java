@@ -104,7 +104,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
                         ANIME_PROJECTION,
                         null,
                         null,
-                        null
+                        AnimeEntry.COLUMN_SERVER_ID + " DESC"
                 );
             default:
                 return null;
