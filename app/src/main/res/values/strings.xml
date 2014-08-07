@@ -10,5 +10,6 @@
     <string name="title_activity_anime">AnimeActivity</string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="no_internet">No Internet Connection</string>
 
 </resources>
