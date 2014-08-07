@@ -8,5 +8,7 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, docendi fastidii has cu, sit ad iusto fierent reprimique. Ea oblique deterruisset nam, ex probo brute vel. Qui duis illud nemore cu. Nec ad maluisset complectitur, tollit impedit vix in, sit atomorum salutandi liberavisse ei. Ex viris semper nam</string>
     <string name="empty_view_text">NOTHING HERE</string>
     <string name="title_activity_anime">AnimeActivity</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 
 </resources>

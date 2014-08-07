@@ -36,6 +36,12 @@ public class Episode {
 
     private int ratingDown;
 
+    @SerializedName("animeInfo")
+    private AnimeInfo animeInfo;
+
+    @SerializedName("season")
+    private SeasonInfo seasonInfo;
+
     public int getServerId() {
         return serverId;
     }
@@ -84,6 +90,14 @@ public class Episode {
         return ratingDown;
     }
 
+    public AnimeInfo getAnimeInfo() {
+        return animeInfo;
+    }
+
+    public SeasonInfo getSeasonInfo() {
+        return seasonInfo;
+    }
+
     public class AirDate {
 
         private String date;
@@ -103,6 +117,40 @@ public class Episode {
 
         public String getTimezone() {
             return timezone;
+        }
+    }
+
+    public class AnimeInfo {
+
+        @SerializedName("id")
+        private int animeServerId;
+
+        @SerializedName("title")
+        private String animeTitle;
+
+        public String getAnimeTitle() {
+            return animeTitle;
+        }
+
+        public int getAnimeServerId() {
+            return animeServerId;
+        }
+    }
+
+    public class SeasonInfo {
+
+        @SerializedName("id")
+        private int seasonServerId;
+
+        @SerializedName("season")
+        private int season;
+
+        public int getSeasonServerId() {
+            return seasonServerId;
+        }
+
+        public int getSeason() {
+            return season;
         }
     }
 }
