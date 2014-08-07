@@ -21,6 +21,7 @@ public class AnimeService extends AbstractIntentService {
 
     private API api;
     private static final String EXTRA_SKIP = "EXTRA_SKIP";
+    private static final String EXTRA_PAGE = "EXTRA_PAGE";
     private static final String EXTRA_LIMIT = "EXTRA_LIMIT";
     private static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
     private static final String EXTRA_SERVER_ID = "EXTRA_SERVER_ID";
@@ -35,13 +36,13 @@ public class AnimeService extends AbstractIntentService {
         api = APIFactory.instence();
     }
 
-    public static Intent requestAnimes(Context context, int skip, int limit, ServiceReceiver receiver) {
+    public static Intent requestAnimes(Context context, int page, int limit, ServiceReceiver receiver) {
         final Intent intent = new Intent(context, AnimeService.class);
         if (receiver != null) {
             intent.putExtra(EXTRA_RECEIVER, receiver);
         }
         intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.ANIME);
-        intent.putExtra(EXTRA_SKIP, skip);
+        intent.putExtra(EXTRA_PAGE, page);
         intent.putExtra(EXTRA_LIMIT, limit);
         context.startService(intent);
         return intent;
@@ -60,7 +61,7 @@ public class AnimeService extends AbstractIntentService {
         REQUESTS request = (REQUESTS) intent.getSerializableExtra(EXTRA_REQUEST_TYPE);
         switch (request) {
             case ANIME:
-                requestAnimes(intent.getIntExtra(EXTRA_SKIP, 0), intent.getIntExtra(EXTRA_LIMIT, 0));
+                requestAnimes(intent.getIntExtra(EXTRA_PAGE, 1), intent.getIntExtra(EXTRA_LIMIT, 0));
                 break;
             case ANIME_BY_SERVER_ID:
                 requestAnimeWithServerId(intent.getIntExtra(EXTRA_SERVER_ID, -1));
@@ -77,9 +78,9 @@ public class AnimeService extends AbstractIntentService {
         getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
     }
 
-    private void requestAnimes(int skip, int limit) {
-        List<Anime> animes = api.animes(skip, limit).getPayload().getAnimes();
-        if (skip == 0) {
+    private void requestAnimes(int page, int limit) {
+        List<Anime> animes = api.animes(page, limit).getPayload().getAnimes();
+        if (page <= 1) {
             getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
         }
         ContentValues[] contentValueses = new ContentValues[animes.size()];

@@ -13,7 +13,7 @@ import retrofit.http.Query;
 public interface API {
 
     @GET("/animes/list-animes.json")
-    AnimeResponse animes(@Query("skip") int skip, @Query("maxr") int limit);
+    AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
 
 
     @POST("/animes/{id}.json")

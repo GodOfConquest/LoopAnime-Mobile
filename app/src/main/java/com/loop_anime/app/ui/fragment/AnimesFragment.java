@@ -14,6 +14,7 @@ import com.loop_anime.app.R;
 import com.loop_anime.app.service.AnimeService;
 import com.loop_anime.app.service.ServiceReceiver;
 import com.loop_anime.app.ui.adapter.AnimesAdapter;
+import com.loop_anime.app.ui.listener.EndlessScrollListener;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -56,6 +57,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     public static final int COL_RUNNING_TIME = 10;
     public static final int COL_RATING_UP = 11;
     public static final int COL_RATING_DOWN = 12;
+    private static final int ITEM_PER_PAGE = 10;
 
 
     private AnimesAdapter mAdapter;
@@ -64,6 +66,7 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     private ListView mListView;
     private PullToRefreshLayout mPullToRefreshLayout;
     private View mEmptyView;
+    private EndlessScrollListener mEndlessListListener;
 
 
     @Override
@@ -73,19 +76,29 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
         mListView = (ListView) mView.findViewById(R.id.list_animes);
         mEmptyView = mView.findViewById(android.R.id.empty);
         mListView.setEmptyView(mEmptyView);
-        ActionBarPullToRefresh.from(getActivity())
-                .allChildrenArePullable()
-                .listener(this)
-                .setup(mPullToRefreshLayout);
         getLoaderManager().initLoader(ANIME_LOADER, null, this);
-        mAdapter = new AnimesAdapter(getActivity(), null, 0);
-        mListView.setAdapter(mAdapter);
         return mView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mAdapter = new AnimesAdapter(getActivity(), null, 0);
+        mListView.setAdapter(mAdapter);
+
+        mEndlessListListener = new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                AnimeService.requestAnimes(getActivity(), page, ITEM_PER_PAGE ,mReceiver);
+                mPullToRefreshLayout.setRefreshing(true);
+            }
+        };
+        mListView.setOnScrollListener(mEndlessListListener);
+        ActionBarPullToRefresh.from(getActivity())
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
     }
 
     @Override
@@ -97,14 +110,14 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         switch (i) {
             case ANIME_LOADER:
-                AnimeService.requestAnimes(getActivity(), 0, 50, mReceiver);
+                AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
                 return new CursorLoader(
                         getActivity(),
                         AnimeEntry.CONTENT_URI,
                         ANIME_PROJECTION,
                         null,
                         null,
-                        AnimeEntry.COLUMN_SERVER_ID + " DESC"
+                        AnimeEntry._ID + " ASC"
                 );
             default:
                 return null;
@@ -123,7 +136,8 @@ public class AnimesFragment extends AbstractFragment implements LoaderManager.Lo
 
     @Override
     public void onRefreshStarted(View view) {
-        AnimeService.requestAnimes(getActivity(), 0, 50, mReceiver);
+        mEndlessListListener.reset();
+        AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
     }
 
     @Override
