@@ -11,7 +11,7 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
     // before loading more.
     private int visibleThreshold = 3;
     // The current offset index of data you have loaded
-    private int currentPage = 1;
+    private int currentPage = 0;
     // The total number of items in the dataset after the last load
     private int previousTotalItemCount = 0;
     // True if we are still waiting for the last set of data to load.
