@@ -15,12 +15,15 @@ public interface API {
     @GET("/animes/list-animes.json")
     AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
 
-
     @POST("/animes/{id}.json")
     AnimeResponse animesByServerId(@Path("id") int serverId);
 
     @FormUrlEncoded
     @POST("/episodes/get-episodes.json")
     EpisodeResponse episode(@Field("maxr") int limit, @Field("skip") int skip, @Field("typeEpisode") String type);
+
+    @FormUrlEncoded
+    @POST("/episodes/list-episodes.json")
+    EpisodeResponse episode(@Field("anime") int animeId, @Field("season") int season);
 
 }

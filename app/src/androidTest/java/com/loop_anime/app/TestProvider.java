@@ -75,6 +75,7 @@ public class TestProvider extends AndroidTestCase{
         values.put(AnimeEntry.COLUMN_RUNNING_TIME, "25");
         values.put(AnimeEntry.COLUMN_RATING_UP, 2);
         values.put(AnimeEntry.COLUMN_RATING_DOWN, 0);
+        values.put(AnimeEntry.COLUMN_TOTAL_SEASONS, 2);
         return values;
     }
 

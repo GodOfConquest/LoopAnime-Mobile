@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteException;
 import android.test.AndroidTestCase;
 
 import com.loop_anime.app.db.AnimeDbHelper;
+import com.loop_anime.app.db.EpisodeDbHelper;
 import com.loop_anime.app.db.Table;
 
 import java.util.Map;
@@ -25,6 +26,9 @@ public class TestDatabase extends AndroidTestCase{
     public void testCreateDb() throws Throwable {
         mContext.deleteDatabase(AnimeDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new AnimeDbHelper(mContext).getWritableDatabase();
+        assertEquals(true, db.isOpen());
+        db.close();
+        db = new EpisodeDbHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }

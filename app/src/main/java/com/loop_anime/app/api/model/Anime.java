@@ -43,6 +43,9 @@ public class Anime {
     @SerializedName("ratingDown")
     private int ratingDown;
 
+    @SerializedName("total_seasons")
+    private int totalSeasons;
+
     public int getServerId() {
         return serverId;
     }
@@ -139,4 +142,11 @@ public class Anime {
         this.ratingDown = ratingDown;
     }
 
+    public int getTotalSeasons() {
+        return totalSeasons;
+    }
+
+    public void setTotalSeasons(int totalSeasons) {
+        this.totalSeasons = totalSeasons;
+    }
 }
