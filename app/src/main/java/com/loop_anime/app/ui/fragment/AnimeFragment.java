@@ -16,12 +16,14 @@ import com.loop_anime.app.R;
 import com.loop_anime.app.db.Table;
 import com.loop_anime.app.service.AnimeService;
 import com.loop_anime.app.ui.activity.AbstractActivity;
+import com.loop_anime.app.ui.listener.NotifyingScrollViewListener;
+import com.loop_anime.app.ui.view.NotifyingScrollView;
 import com.loop_anime.app.util.ImageUtil;
 
 /**
  * Created by allan on 14/7/28.
  */
-public class AnimeFragment extends AbstractFragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class AnimeFragment extends AbstractFragment implements LoaderManager.LoaderCallbacks<Cursor>,NotifyingScrollViewListener {
 
     private static final String LOG_TAG = AnimeFragment.class.getSimpleName();
 
@@ -43,6 +45,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
     private TextView mStartDateView;
     private TextView mEndDateView;
     private NetworkImageView mPosterImageView;
+    private NotifyingScrollView mScrollView;
 
     @Override
     public boolean enableReceiver() {
@@ -71,6 +74,8 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
         mDescriptionView = (TextView) rootView.findViewById(R.id.text_anime_description);
         mStartDateView = (TextView) rootView.findViewById(R.id.text_anime_start_date);
         mEndDateView = (TextView) rootView.findViewById(R.id.text_anime_end_date);
+        mScrollView = (NotifyingScrollView) rootView.findViewById(R.id.scrollview_anime);
+        mScrollView.setNotifyingScrollViewListener(this);
         return rootView;
     }
 
@@ -112,5 +117,12 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
+    }
+
+    @Override
+    public void onScrolled(NotifyingScrollView notifyingScrollView, int l, int t, int oldl, int oldt) {
+        int scrollY = notifyingScrollView.getScrollY();
+
+        mPosterImageView.setTranslationY(scrollY * 0.5f);
     }
 }

@@ -29,6 +29,7 @@
         <activity
             android:name=".ui.activity.AnimeActivity"
             android:label="@string/title_activity_anime"
+            android:theme="@style/AppTheme.TransparentActionBar"
             android:parentActivityName=".ui.activity.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

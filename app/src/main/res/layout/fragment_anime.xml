@@ -1,6 +1,7 @@
-<ScrollView
+<com.loop_anime.app.ui.view.NotifyingScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview_anime"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,43 +9,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="com.loop_anime.app.ui.activity.AnimeActivity$PlaceholderFragment">
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/image_anime_poster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/text_anime_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Large"
-            android:textStyle="bold"/>
+            android:background="@android:color/white"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin" >
+            <TextView
+                android:id="@+id/text_anime_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/TextAppearance.Large"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/text_anime_description"
-            android:layout_marginTop="@dimen/space_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Small"
-            android:textStyle="italic"/>
+            <TextView
+                android:id="@+id/text_anime_description"
+                android:layout_marginTop="@dimen/space_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@android:style/TextAppearance.Small"
+                android:textStyle="italic"/>
 
 
-        <TextView
-            android:id="@+id/text_anime_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_anime_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/text_anime_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text_anime_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+
+</com.loop_anime.app.ui.view.NotifyingScrollView>
