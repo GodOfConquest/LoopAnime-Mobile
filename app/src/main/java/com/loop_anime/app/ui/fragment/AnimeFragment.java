@@ -51,7 +51,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
     private View mHeaderBox;
     private View mHeaderActionbarBackground;
     private int actionbarHeight;
-    private boolean isHeaderBackgroundShown = true;
+    private boolean isHeaderBackgroundShown;
 
     @Override
     public boolean enableReceiver() {
@@ -94,6 +94,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
         ViewGroup.LayoutParams layoutParams = mHeaderActionbarBackground.getLayoutParams();
         layoutParams.height = actionbarHeight;
         mHeaderActionbarBackground.setLayoutParams(layoutParams);
+        mHeaderActionbarBackground.setScaleY(0f);
         onScrolled(0, 0);
     }
 
