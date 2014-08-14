@@ -105,6 +105,7 @@ public class AnimeService extends AbstractIntentService {
         values.put(AnimeEntry.COLUMN_RUNNING_TIME, anime.getRunningTime());
         values.put(AnimeEntry.COLUMN_RATING_UP, anime.getRatingUp());
         values.put(AnimeEntry.COLUMN_RATING_DOWN, anime.getRatingDown());
+        values.put(AnimeEntry.COLUMN_TOTAL_SEASONS, anime.getTotalSeasons());
         return values;
     }
 

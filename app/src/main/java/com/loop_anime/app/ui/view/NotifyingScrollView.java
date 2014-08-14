@@ -31,7 +31,7 @@ public class NotifyingScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         if (notifyingScrollViewListener != null) {
-            notifyingScrollViewListener.onScrolled(this, l, t, oldl, oldt);
+            notifyingScrollViewListener.onScrolled(l, t);
         }
         super.onScrollChanged(l, t, oldl, oldt);
     }

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -19,6 +20,7 @@ import com.loop_anime.app.ui.activity.AbstractActivity;
 import com.loop_anime.app.ui.listener.NotifyingScrollViewListener;
 import com.loop_anime.app.ui.view.NotifyingScrollView;
 import com.loop_anime.app.util.ImageUtil;
+import com.loop_anime.app.util.UiUtil;
 
 /**
  * Created by allan on 14/7/28.
@@ -46,6 +48,10 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
     private TextView mEndDateView;
     private NetworkImageView mPosterImageView;
     private NotifyingScrollView mScrollView;
+    private View mHeaderBox;
+    private View mHeaderActionbarBackground;
+    private int actionbarHeight;
+    private boolean isHeaderBackgroundShown = true;
 
     @Override
     public boolean enableReceiver() {
@@ -62,6 +68,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
         if (animeServerId == -1) {
             throw new IllegalArgumentException("Anime Fragment don't receive Anime Server Id");
         }
+        actionbarHeight = UiUtil.getActionBarHeight(getActivity());
         getLoaderManager().initLoader(LOAD_ANIME_SERVER_ID, null, this);
     }
 
@@ -76,12 +83,18 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
         mEndDateView = (TextView) rootView.findViewById(R.id.text_anime_end_date);
         mScrollView = (NotifyingScrollView) rootView.findViewById(R.id.scrollview_anime);
         mScrollView.setNotifyingScrollViewListener(this);
+        mHeaderBox = rootView.findViewById(R.id.header_box);
+        mHeaderActionbarBackground = rootView.findViewById(R.id.header_actionbar_background);
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ViewGroup.LayoutParams layoutParams = mHeaderActionbarBackground.getLayoutParams();
+        layoutParams.height = actionbarHeight;
+        mHeaderActionbarBackground.setLayoutParams(layoutParams);
+        onScrolled(0, 0);
     }
 
     @Override
@@ -108,7 +121,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
                             ((AbstractActivity)getActivity()).getImageLoaderMemoryCache());
                     mTitleView.setText(cursor.getString(1));
                     mDescriptionView.setText(cursor.getString(2));
-                    mStartDateView.setText(cursor.getString(5));
+                    mStartDateView.setText(cursor.getString(3));
                     mEndDateView.setText(cursor.getString(4));
                 }
         }
@@ -120,9 +133,25 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
     }
 
     @Override
-    public void onScrolled(NotifyingScrollView notifyingScrollView, int l, int t, int oldl, int oldt) {
-        int scrollY = notifyingScrollView.getScrollY();
+    public void onScrolled(int l, int t) {
+        int scrollY = mScrollView.getScrollY();
 
         mPosterImageView.setTranslationY(scrollY * 0.5f);
+
+        float newTop = Math.max(getResources().getDimensionPixelSize(R.dimen.anime_poster_image_height)  - actionbarHeight, scrollY);
+        mHeaderBox.setTranslationY(newTop);
+
+        boolean toShowHeaderBackground = scrollY >= newTop;
+        float computedScaleY = toShowHeaderBackground ? 1f : 0f;
+        mHeaderActionbarBackground.setPivotY(actionbarHeight);
+        if (isHeaderBackgroundShown != toShowHeaderBackground) {
+            mHeaderActionbarBackground.animate()
+                    .scaleY(computedScaleY)
+                    .setDuration(250)
+                    .setInterpolator(new DecelerateInterpolator(2f))
+                    .start();
+        }
+        isHeaderBackgroundShown = toShowHeaderBackground;
+
     }
 }
