@@ -3,7 +3,6 @@ package com.loop_anime.app.service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.loop_anime.app.api.API;
 import com.loop_anime.app.api.APIFactory;

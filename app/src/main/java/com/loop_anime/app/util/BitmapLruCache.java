@@ -1,7 +1,6 @@
 package com.loop_anime.app.util;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.util.Log;
 import android.util.LruCache;
 

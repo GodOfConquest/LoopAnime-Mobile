@@ -8,7 +8,6 @@ import com.loop_anime.app.api.AnimeResponse;
 import com.loop_anime.app.api.EpisodeResponse;
 import com.loop_anime.app.api.model.Anime;
 import com.loop_anime.app.api.model.Episode;
-import com.loop_anime.app.service.AnimeService;
 
 import junit.framework.Assert;
 

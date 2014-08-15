@@ -22,7 +22,10 @@
 
         <provider
             android:name=".provider.AnimeProvider"
-            android:authorities="com.loop_anime.app" />
+            android:authorities="com.loop_anime.app.provider.AnimeProvider" />
+        <provider
+            android:name=".provider.EpisodeProvider"
+            android:authorities="com.loop_anime.app.provider.EpisodeProvider" />
 
         <service android:name=".service.AnimeService" />
 

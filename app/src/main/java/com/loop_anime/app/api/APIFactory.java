@@ -1,7 +1,5 @@
 package com.loop_anime.app.api;
 
-import android.util.Log;
-
 import retrofit.RestAdapter;
 import retrofit.android.AndroidLog;
 

@@ -4,6 +4,7 @@ android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
 
+
     defaultConfig {
         applicationId "com.loop_anime.app"
         minSdkVersion 16

@@ -3,17 +3,15 @@ package com.loop_anime.app;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.test.AndroidTestCase;
 
-import com.loop_anime.app.db.AnimeDbHelper;
-import com.loop_anime.app.db.EpisodeDbHelper;
-import com.loop_anime.app.db.Table;
+import com.loop_anime.app.db.DatabaseHelper;
 
 import java.util.Map;
 import java.util.Set;
 
 import static com.loop_anime.app.db.Table.AnimeEntry;
+import static com.loop_anime.app.db.Table.EpisodeEntry;
 
 /**
  * Created by allan on 14/7/27.
@@ -24,17 +22,14 @@ public class TestDatabase extends AndroidTestCase{
 
 
     public void testCreateDb() throws Throwable {
-        mContext.deleteDatabase(AnimeDbHelper.DATABASE_NAME);
-        SQLiteDatabase db = new AnimeDbHelper(mContext).getWritableDatabase();
-        assertEquals(true, db.isOpen());
-        db.close();
-        db = new EpisodeDbHelper(mContext).getWritableDatabase();
+        mContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }
 
     public void testInsert() throws Throwable {
-        SQLiteDatabase db = new AnimeDbHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
         ContentValues values = createAnimeValues();
         long insertRowId;
         insertRowId = db.insertOrThrow(AnimeEntry.TABLE_NAME, null, values);
@@ -52,9 +47,28 @@ public class TestDatabase extends AndroidTestCase{
         cursor.close();
     }
 
+    public void testEpisodeInsert() throws Throwable {
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        ContentValues values = createEpisodeValues();
+        long insertRowId;
+        insertRowId = db.insertOrThrow(EpisodeEntry.TABLE_NAME, null, values);
+        assertTrue(insertRowId != -1);
+
+        Cursor cursor = db.query(EpisodeEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        validateCursor(cursor, values);
+        cursor.close();
+    }
+
     private ContentValues createAnimeValues() {
         ContentValues values = new ContentValues();
         values.put(AnimeEntry.COLUMN_SERVER_ID, 29);
+        values.put(AnimeEntry.COLUMN_TOTAL_SEASONS, 2);
         values.put(AnimeEntry.COLUMN_POSTER, "/img/episodes/thetvdb/posters/80814-3.jpg");
         values.put(AnimeEntry.COLUMN_GENRES, "Animation,Science-Fiction");
         values.put(AnimeEntry.COLUMN_START_TIME, "2006-10-06");
@@ -66,6 +80,29 @@ public class TestDatabase extends AndroidTestCase{
         values.put(AnimeEntry.COLUMN_RUNNING_TIME, "25");
         values.put(AnimeEntry.COLUMN_RATING_UP, 2);
         values.put(AnimeEntry.COLUMN_RATING_DOWN, 0);
+        return values;
+    }
+
+
+    private ContentValues createEpisodeValues() {
+        ContentValues values = new ContentValues();
+        values.put(EpisodeEntry.COLUMN_ANIME_SERVER_ID, 48);
+        values.put(EpisodeEntry.COLUMN_ANIME_TITLE, "Captain Earth");
+        values.put(EpisodeEntry.COLUMN_SEASON_SERVER_ID, 622);
+        values.put(EpisodeEntry.COLUMN_SEASON, 1);
+        values.put(EpisodeEntry.COLUMN_SERVER_ID, 29);
+        values.put(EpisodeEntry.COLUMN_POSTER, "http://slurm.trakt.us/images/fanart/32053-940.4.jpg");
+        values.put(EpisodeEntry.COLUMN_AIR_DATE, "2014-08-10 00:00:00");
+        values.put(EpisodeEntry.COLUMN_TIME_ZONE_TYPE, 3);
+        values.put(EpisodeEntry.COLUMN_TIME_ZONE, "Europe/London");
+        values.put(EpisodeEntry.COLUMN_ABSOLUTE_NUMBER, 19);
+        values.put(EpisodeEntry.COLUMN_VIEWS, 1);
+        values.put(EpisodeEntry.COLUMN_TITLE, "Episode 19");
+        values.put(EpisodeEntry.COLUMN_EPISODE_NUMBER, 19);
+        values.put(EpisodeEntry.COLUMN_RATING, 0);
+        values.put(EpisodeEntry.COLUMN_SUMMERY, "");
+        values.put(EpisodeEntry.COLUMN_RATING_UP, 0);
+        values.put(EpisodeEntry.COLUMN_RATING_DOWN, 0);
         return values;
     }
 

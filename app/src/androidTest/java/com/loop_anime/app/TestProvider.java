@@ -7,12 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.test.AndroidTestCase;
 
-import com.loop_anime.app.db.AnimeDbHelper;
+import com.loop_anime.app.api.model.Episode;
+import com.loop_anime.app.db.DatabaseHelper;
 import com.loop_anime.app.db.Table;
 
 import java.util.Map;
 import java.util.Set;
 
+import static com.loop_anime.app.db.Table.*;
 import static com.loop_anime.app.db.Table.AnimeEntry;
 
 /**
@@ -24,14 +26,14 @@ public class TestProvider extends AndroidTestCase{
 
 
     public void testCreateDb() throws Throwable {
-        mContext.deleteDatabase(AnimeDbHelper.DATABASE_NAME);
-        SQLiteDatabase db = new AnimeDbHelper(mContext).getWritableDatabase();
+        mContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }
 
     public void testInsert() throws Throwable {
-        SQLiteDatabase db = new AnimeDbHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
         ContentValues values = createAnimeValues();
         long insertRowId;
         Uri uri = mContext.getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
@@ -59,6 +61,59 @@ public class TestProvider extends AndroidTestCase{
 
         int deletedCount = mContext.getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
         assertTrue(deletedCount == 1);
+    }
+
+    public void testEpisodeInsert() throws Throwable {
+        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        ContentValues values = createEpisodeValues();
+        long insertRowId;
+        Uri uri = mContext.getContentResolver().insert(EpisodeEntry.CONTENT_URI, values);
+        insertRowId = ContentUris.parseId(uri);
+
+        assertTrue(insertRowId != -1);
+
+        Cursor cursor = mContext.getContentResolver().query(EpisodeEntry.buildEpisodeByServerIdUri(29),
+                null,
+                null,
+                null,
+                null);
+
+        validateCursor(cursor, values);
+        cursor.close();
+
+        cursor = mContext.getContentResolver().query(EpisodeEntry.buildEpisodeUri(insertRowId),
+                null,
+                null,
+                null,
+                null);
+
+        validateCursor(cursor, values);
+        cursor.close();
+
+        int deletedCount = mContext.getContentResolver().delete(EpisodeEntry.CONTENT_URI, null, null);
+        assertTrue(deletedCount == 1);
+    }
+
+    private ContentValues createEpisodeValues() {
+        ContentValues values = new ContentValues();
+        values.put(EpisodeEntry.COLUMN_ANIME_SERVER_ID, 48);
+        values.put(EpisodeEntry.COLUMN_ANIME_TITLE, "Captain Earth");
+        values.put(EpisodeEntry.COLUMN_SEASON_SERVER_ID, 622);
+        values.put(EpisodeEntry.COLUMN_SEASON, 1);
+        values.put(EpisodeEntry.COLUMN_SERVER_ID, 29);
+        values.put(EpisodeEntry.COLUMN_POSTER, "http://slurm.trakt.us/images/fanart/32053-940.4.jpg");
+        values.put(EpisodeEntry.COLUMN_AIR_DATE, "2014-08-10 00:00:00");
+        values.put(EpisodeEntry.COLUMN_TIME_ZONE_TYPE, 3);
+        values.put(EpisodeEntry.COLUMN_TIME_ZONE, "Europe/London");
+        values.put(EpisodeEntry.COLUMN_ABSOLUTE_NUMBER, 19);
+        values.put(EpisodeEntry.COLUMN_VIEWS, 1);
+        values.put(EpisodeEntry.COLUMN_TITLE, "Episode 19");
+        values.put(EpisodeEntry.COLUMN_EPISODE_NUMBER, 19);
+        values.put(EpisodeEntry.COLUMN_RATING, 0);
+        values.put(EpisodeEntry.COLUMN_SUMMERY, "");
+        values.put(EpisodeEntry.COLUMN_RATING_UP, 0);
+        values.put(EpisodeEntry.COLUMN_RATING_DOWN, 0);
+        return values;
     }
 
     private ContentValues createAnimeValues() {

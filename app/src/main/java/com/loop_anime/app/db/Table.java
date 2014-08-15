@@ -9,9 +9,9 @@ import android.provider.BaseColumns;
  */
 public class Table {
 
-    public static final String CONTENT_AUTHORITY = "com.loop_anime.app";
+    public static final String ANIME_CONTENT_AUTHORITY = "com.loop_anime.app.provider.AnimeProvider";
 
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final String EPISODE_CONTENT_AUTHORITY = "com.loop_anime.app.provider.EpisodeProvider";
 
     public static final String PATH_ANIME = "anime";
 
@@ -19,13 +19,16 @@ public class Table {
 
     public static final class AnimeEntry implements BaseColumns {
 
+
+        public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + ANIME_CONTENT_AUTHORITY);
+
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_ANIME).build();
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_ANIME;
+                "vnd.android.cursor.dir/" + ANIME_CONTENT_AUTHORITY + "/" + PATH_ANIME;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_ANIME;
+                "vnd.android.cursor.item/" + ANIME_CONTENT_AUTHORITY + "/" + PATH_ANIME;
 
         public static final String TABLE_NAME = "anime";
 
@@ -71,13 +74,16 @@ public class Table {
     }
 
     public static final class EpisodeEntry implements BaseColumns {
+
+        public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + EPISODE_CONTENT_AUTHORITY);
+
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_EPISODE).build();
 
         public static final String CONTENT_TYPE =
-                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_ANIME;
+                "vnd.android.cursor.dir/" + EPISODE_CONTENT_AUTHORITY + "/" + PATH_EPISODE;
         public static final String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_ANIME;
+                "vnd.android.cursor.item/" + EPISODE_CONTENT_AUTHORITY + "/" + PATH_EPISODE;
 
         public static final String TABLE_NAME = "episode";
 
