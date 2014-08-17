@@ -7,12 +7,17 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 import com.loop_anime.app.R;
+import com.loop_anime.app.api.API;
+import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.util.NetworkUtil;
 
 /**
  * Created by allan on 14/7/28.
  */
 abstract public class AbstractIntentService extends IntentService{
+
+
+    protected API api;
 
     private static final String LOG_TAG = "Service";
 
@@ -21,6 +26,14 @@ abstract public class AbstractIntentService extends IntentService{
     public AbstractIntentService(String name) {
         super(name);
     }
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        api = APIFactory.instence();
+    }
+
 
     @Override
     protected void onHandleIntent(Intent intent) {

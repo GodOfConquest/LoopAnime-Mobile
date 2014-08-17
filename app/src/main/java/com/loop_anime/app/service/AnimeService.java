@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.loop_anime.app.api.API;
-import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.api.model.Anime;
 
 import java.util.List;
@@ -18,7 +16,6 @@ import static com.loop_anime.app.db.Table.AnimeEntry;
 public class AnimeService extends AbstractIntentService {
 
 
-    private API api;
     private static final String EXTRA_SKIP = "EXTRA_SKIP";
     private static final String EXTRA_PAGE = "EXTRA_PAGE";
     private static final String EXTRA_LIMIT = "EXTRA_LIMIT";
@@ -27,12 +24,6 @@ public class AnimeService extends AbstractIntentService {
 
     public AnimeService() {
         super("AnimeService");
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        api = APIFactory.instence();
     }
 
     public static Intent requestAnimes(Context context, int page, int limit, ServiceReceiver receiver) {
@@ -70,7 +61,6 @@ public class AnimeService extends AbstractIntentService {
     }
 
     private void requestAnimeWithServerId(int serverId) {
-        //TODO: api request
         List<Anime> animes = api.animesByServerId(serverId).getPayload().getAnimes();
         Anime anime = animes.get(0);
         ContentValues values = getAnimeContentValues(anime);

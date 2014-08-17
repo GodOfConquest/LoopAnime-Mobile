@@ -28,12 +28,12 @@ public class TestApi extends AndroidTestCase {
     }
 
     public void testEpisode() throws Throwable {
-        EpisodeResponse recent = APIFactory.instence().episode(10, 0, null);
+        EpisodeResponse recent = APIFactory.instence().episode(20, 0, null);
         List<Episode> episodes = recent.getPayload().getEpisodes();
         for (Episode episode : episodes) {
             Log.v("EPISODE API", episode.getAnimeInfo().getAnimeTitle());
         }
-        Assert.assertEquals(10,episodes.size());
+        Assert.assertEquals(20,episodes.size());
     }
 
 

@@ -18,9 +18,8 @@ public interface API {
     @POST("/animes/{id}.json")
     AnimeResponse animesByServerId(@Path("id") int serverId);
 
-    @FormUrlEncoded
-    @POST("/episodes/get-episodes.json")
-    EpisodeResponse episode(@Field("maxr") int limit, @Field("skip") int skip, @Field("typeEpisode") String type);
+    @GET("/episodes/get-episodes.json")
+    EpisodeResponse episode(@Query("maxr") int limit, @Query("page") int page, @Query("typeEpisode") String type);
 
     @FormUrlEncoded
     @POST("/episodes/list-episodes.json")

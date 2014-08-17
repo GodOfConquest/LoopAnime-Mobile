@@ -48,13 +48,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 EpisodeEntry.COLUMN_SEASON + " INTEGER NOT NULL, " +
                 EpisodeEntry.COLUMN_SERVER_ID + " INTEGER NOT NULL, " +
                 EpisodeEntry.COLUMN_POSTER + " TEXT NOT NULL, " +
-                EpisodeEntry.COLUMN_AIR_DATE + " TEXT, " +
+                EpisodeEntry.COLUMN_AIR_DATE + " TEXT NOT NULL, " +
                 EpisodeEntry.COLUMN_TIME_ZONE_TYPE + " INTEGER, " +
                 EpisodeEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 EpisodeEntry.COLUMN_EPISODE_NUMBER + " INTEGER NOT NULL, " +
-                EpisodeEntry.COLUMN_SUMMERY + " TEXT NOT NULL, " +
-                EpisodeEntry.COLUMN_RATING + " INTEGER NOT NULL, " +
-                EpisodeEntry.COLUMN_TIME_ZONE + " INTEGER NOT NULL, " +
+                EpisodeEntry.COLUMN_SUMMERY + " TEXT, " +
+                EpisodeEntry.COLUMN_RATING + " INTEGER, " +
+                EpisodeEntry.COLUMN_TIME_ZONE + " INTEGER, " +
                 EpisodeEntry.COLUMN_ABSOLUTE_NUMBER + " INTEGER NOT NULL, " +
                 EpisodeEntry.COLUMN_VIEWS + " INTEGER NOT NULL, " +
                 EpisodeEntry.COLUMN_RATING_UP + " INTEGER NOT NULL, " +

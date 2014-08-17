@@ -124,7 +124,18 @@ public class TestProvider extends AndroidTestCase{
         values.put(AnimeEntry.COLUMN_START_TIME, "2006-10-06");
         values.put(AnimeEntry.COLUMN_END_TIME, "");
         values.put(AnimeEntry.COLUMN_TITLE, "009-1");
-        values.put(AnimeEntry.COLUMN_PLOT_SUMMERY, "In a world where the Cold War never ended, East and West continue to battle for technological and political supremacy.\\n\\nMylene Hoffman, field commander of the elite Double Zero intelligence division, exists in this world with her eyes open and her body always ready to do battle. She puts the intelligence into â€œintelligence agentâ€\u009D and her body into â€œbody of evidence!â€\u009D Liberating benevolent scientists, tagging along with would-be monster-slayers, meeting her match in the worldâ€™s most hard-boiled assassin and navigating a deadly labyrinth of horrors are all in a dayâ€™s work for Mylene. Thereâ€™s no problem she canâ€™t solve with the proper application of high explosives, fast-talk, deceptive jewelry, make-up and the right moves behind closed doors! In a world of spy mystery and intrigue, discover who she kisses one minute and kills the next.");
+        values.put(AnimeEntry.COLUMN_PLOT_SUMMERY, "In a world where the Cold War never ended, " +
+                "East and West continue to battle for technological and political supremacy.\\n\\n" +
+                "Mylene Hoffman, field commander of the elite Double Zero intelligence division, " +
+                "exists in this world with her eyes open and her body always ready to do battle. " +
+                "She puts the intelligence into â€œintelligence agentâ€\u009D and her body into " +
+                "â€œbody of evidence!â€\u009D Liberating benevolent scientists, tagging along with " +
+                "would-be monster-slayers, meeting her match in the worldâ€™s most hard-boiled " +
+                "assassin and navigating a deadly labyrinth of horrors are all in a dayâ€™s work " +
+                "for Mylene. Thereâ€™s no problem she canâ€™t solve with the proper application of " +
+                "high explosives, fast-talk, deceptive jewelry, make-up and the right moves behind " +
+                "closed doors! In a world of spy mystery and intrigue, discover who she kisses one " +
+                "minute and kills the next.");
         values.put(AnimeEntry.COLUMN_RATING, 8);
         values.put(AnimeEntry.COLUMN_STATUS, "Ended");
         values.put(AnimeEntry.COLUMN_RUNNING_TIME, "25");

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 import com.loop_anime.app.db.DatabaseHelper;
 import com.loop_anime.app.db.Table;
@@ -127,6 +128,9 @@ public class EpisodeProvider extends ContentProvider{
         switch (sUriMatcher.match(uri)) {
             case EPISODE:
                 long id = mEpisodeDBHelper.getWritableDatabase().insert(Table.EpisodeEntry.TABLE_NAME, null, contentValues);
+                Cursor query = mEpisodeDBHelper.getReadableDatabase().query(Table.EpisodeEntry.TABLE_NAME, null, null, null, null, null, null, null);
+                int count = query.getCount();
+                Log.v("Count", String.valueOf(count));
                 if (id > 0 ) {
                     returnUri = Table.EpisodeEntry.buildEpisodeUri(id);
                 }

@@ -28,6 +28,7 @@
             android:authorities="com.loop_anime.app.provider.EpisodeProvider" />
 
         <service android:name=".service.AnimeService" />
+        <service android:name=".service.EpisodeService" />
 
         <activity
             android:name=".ui.activity.AnimeActivity"
