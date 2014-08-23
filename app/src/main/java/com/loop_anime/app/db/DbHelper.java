@@ -10,13 +10,13 @@ import static com.loop_anime.app.db.Table.AnimeEntry;
 /**
  * Created by allan on 14/7/27.
  */
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
 
     public static final String DATABASE_NAME = "loopanime.db";
 
-    public DatabaseHelper(Context context) {
+    public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -6,8 +6,10 @@ import android.util.Log;
 import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.api.AnimeResponse;
 import com.loop_anime.app.api.EpisodeResponse;
+import com.loop_anime.app.api.LinkResponse;
 import com.loop_anime.app.api.model.Anime;
 import com.loop_anime.app.api.model.Episode;
+import com.loop_anime.app.api.model.Link;
 
 import junit.framework.Assert;
 
@@ -44,5 +46,14 @@ public class TestApi extends AndroidTestCase {
             Log.v("EPISODE API", String.valueOf(episode.getSeasonInfo().getSeason()));
         }
         Assert.assertEquals(10,episodes.size());
+    }
+
+    public void testGetLink() throws Throwable {
+        LinkResponse linkResponse = APIFactory.instence().getLinks(337);
+        List<Link> links = linkResponse.getPayload().getLinks();
+        for (Link link : links) {
+            Log.v("Get Link API", link.getLink());
+        }
+        Assert.assertTrue(links.size() > 0);
     }
 }

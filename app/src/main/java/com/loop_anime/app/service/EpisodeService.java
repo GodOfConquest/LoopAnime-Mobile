@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
+import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.api.EpisodeResponse;
+import com.loop_anime.app.api.LinkResponse;
 import com.loop_anime.app.api.model.Episode;
+import com.loop_anime.app.api.model.Link;
 
 import java.util.List;
 
@@ -23,7 +26,7 @@ public class EpisodeService extends AbstractIntentService {
     private static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
     private static final String EXTRA_SERVER_ID = "EXTRA_SERVER_ID";
 
-    private enum REQUESTS {EPISODE_BY_SERVER_ID, EPISODE};
+    private enum REQUESTS {EPISODE_BY_SERVER_ID, EPISODE, GET_LINK};
 
     public EpisodeService() {
         super("EpisodeService");
@@ -41,6 +44,17 @@ public class EpisodeService extends AbstractIntentService {
         return intent;
     }
 
+    public static Intent getLink(Context context, int episode, ServiceReceiver receiver) {
+        final Intent intent = new Intent(context, EpisodeService.class);
+        if (receiver != null) {
+            intent.putExtra(EXTRA_RECEIVER, receiver);
+        }
+        intent.putExtra(EXTRA_REQUEST_TYPE, REQUESTS.GET_LINK);
+        intent.putExtra(EXTRA_SERVER_ID, episode);
+        context.startService(intent);
+        return intent;
+    }
+
 
     private void getEpisodes(int maxr, int page, String typeEpisode) {
         if (page <= 1) {
@@ -54,6 +68,15 @@ public class EpisodeService extends AbstractIntentService {
             contentValues[i] = values;
         }
         getContentResolver().bulkInsert(EpisodeEntry.CONTENT_URI, contentValues);
+    }
+
+
+    private void getLink(int episodeId) {
+        if (episodeId > 0) {
+            LinkResponse linkResponse = APIFactory.instence().getLinks(episodeId);
+            List<Link> links = linkResponse.getPayload().getLinks();
+            //TODO link provider
+        }
     }
 
 
@@ -89,8 +112,11 @@ public class EpisodeService extends AbstractIntentService {
                 break;
             case EPISODE_BY_SERVER_ID:
                 break;
+            case GET_LINK:
+                getLink(intent.getIntExtra(EXTRA_SERVER_ID, -1));
             default:
                 throw new UnsupportedOperationException("Unknown request: " + request);
         }
     }
+
 }

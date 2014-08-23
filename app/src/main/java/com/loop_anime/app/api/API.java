@@ -25,4 +25,6 @@ public interface API {
     @POST("/episodes/list-episodes.json")
     EpisodeResponse episode(@Field("anime") int animeId, @Field("season") int season);
 
+    @GET("/links/get-links.json")
+    LinkResponse getLinks(@Query("episode") int episodeId);
 }

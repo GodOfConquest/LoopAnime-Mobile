@@ -17,7 +17,7 @@ public class Episode {
     private int idSeason;
 
     @SerializedName("airDate")
-    private AirDate airdate;
+    private Date airdate;
 
     @SerializedName("absoluteNumber")
     private int absoluteNumber;
@@ -54,7 +54,7 @@ public class Episode {
         return idSeason;
     }
 
-    public AirDate getAirdate() {
+    public Date getAirdate() {
         return airdate;
     }
 
@@ -96,28 +96,6 @@ public class Episode {
 
     public SeasonInfo getSeasonInfo() {
         return seasonInfo;
-    }
-
-    public class AirDate {
-
-        private String date;
-
-        @SerializedName("timezone_type")
-        private int timezoneType;
-
-        private String timezone;
-
-        public String getDate() {
-            return date;
-        }
-
-        public int getTimezoneType() {
-            return timezoneType;
-        }
-
-        public String getTimezone() {
-            return timezone;
-        }
     }
 
     public class AnimeInfo {

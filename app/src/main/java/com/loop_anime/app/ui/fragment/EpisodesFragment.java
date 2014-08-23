@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.loop_anime.app.R;
@@ -105,6 +106,17 @@ public class EpisodesFragment extends AbstractFragment implements LoaderManager.
                 .setup(mPullToRefreshLayout);
         mAdapter = new EpisodesAdapter(getActivity(), null, 0);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = (Cursor) mAdapter.getItem(position);
+                EpisodeLinksFragment episodeLinksFragment = new EpisodeLinksFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(EpisodeLinksFragment.EXTRA_EPISODE_ID, cursor.getInt(COL_SERVER_ID));
+                episodeLinksFragment.setArguments(bundle);
+                episodeLinksFragment.show(getFragmentManager(), null);
+            }
+        });
     }
 
     @Override

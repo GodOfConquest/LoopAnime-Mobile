@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
-import com.loop_anime.app.db.DatabaseHelper;
+import com.loop_anime.app.db.DbHelper;
 import com.loop_anime.app.db.Table;
 
 /**
@@ -24,7 +24,7 @@ public class EpisodeProvider extends ContentProvider{
     private static final int EPISODE = 100;
     private static final int EPISODE_WITH_ID = 101;
     private static final int EPISODE_WITH_SERVER_ID = 102;
-    private DatabaseHelper mEpisodeDBHelper;
+    private DbHelper mEpisodeDBHelper;
 
 
     private static final SQLiteQueryBuilder sEpisodeByServerIdQueryBuilder;
@@ -49,7 +49,7 @@ public class EpisodeProvider extends ContentProvider{
 
     @Override
     public boolean onCreate() {
-        mEpisodeDBHelper = new DatabaseHelper(getContext());
+        mEpisodeDBHelper = new DbHelper(getContext());
         return false;
     }
 

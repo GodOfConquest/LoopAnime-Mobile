@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.loop_anime.app.db.DatabaseHelper;
+import com.loop_anime.app.db.DbHelper;
 
 import java.util.Map;
 import java.util.Set;
@@ -22,14 +22,14 @@ public class TestDatabase extends AndroidTestCase{
 
 
     public void testCreateDb() throws Throwable {
-        mContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        mContext.deleteDatabase(DbHelper.DATABASE_NAME);
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }
 
     public void testInsert() throws Throwable {
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         ContentValues values = createAnimeValues();
         long insertRowId;
         insertRowId = db.insertOrThrow(AnimeEntry.TABLE_NAME, null, values);
@@ -48,7 +48,7 @@ public class TestDatabase extends AndroidTestCase{
     }
 
     public void testEpisodeInsert() throws Throwable {
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         ContentValues values = createEpisodeValues();
         long insertRowId;
         insertRowId = db.insertOrThrow(EpisodeEntry.TABLE_NAME, null, values);

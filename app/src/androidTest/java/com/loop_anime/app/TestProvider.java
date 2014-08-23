@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.test.AndroidTestCase;
 
-import com.loop_anime.app.api.model.Episode;
-import com.loop_anime.app.db.DatabaseHelper;
-import com.loop_anime.app.db.Table;
+import com.loop_anime.app.db.DbHelper;
 
 import java.util.Map;
 import java.util.Set;
@@ -26,14 +24,14 @@ public class TestProvider extends AndroidTestCase{
 
 
     public void testCreateDb() throws Throwable {
-        mContext.deleteDatabase(DatabaseHelper.DATABASE_NAME);
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        mContext.deleteDatabase(DbHelper.DATABASE_NAME);
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }
 
     public void testInsert() throws Throwable {
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         ContentValues values = createAnimeValues();
         long insertRowId;
         Uri uri = mContext.getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
@@ -64,7 +62,7 @@ public class TestProvider extends AndroidTestCase{
     }
 
     public void testEpisodeInsert() throws Throwable {
-        SQLiteDatabase db = new DatabaseHelper(mContext).getWritableDatabase();
+        SQLiteDatabase db = new DbHelper(mContext).getWritableDatabase();
         ContentValues values = createEpisodeValues();
         long insertRowId;
         Uri uri = mContext.getContentResolver().insert(EpisodeEntry.CONTENT_URI, values);

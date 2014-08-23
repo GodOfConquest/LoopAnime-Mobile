@@ -16,7 +16,7 @@ import com.loop_anime.app.ui.fragment.EpisodesFragment;
 /**
  * Created by allan on 14/8/17.
  */
-public class EpisodesAdapter extends CursorAdapter implements View.OnClickListener {
+public class EpisodesAdapter extends CursorAdapter {
 
     private static final String LOG_TAG = EpisodesAdapter.class.getSimpleName();
     private Context context;
@@ -53,12 +53,6 @@ public class EpisodesAdapter extends CursorAdapter implements View.OnClickListen
             Log.e(LOG_TAG, "Episode doesn't have anime title: "  + e.toString());
         }
         viewHolder.subtitleText.setText(animeTitle);
-        view.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(context, String.valueOf(((ViewHolder)view.getTag()).serverId), Toast.LENGTH_SHORT).show();
     }
 
     private static class ViewHolder {
