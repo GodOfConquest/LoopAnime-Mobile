@@ -15,9 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loop_anime.app.R;
 import com.loop_anime.app.api.APIFactory;
+import com.loop_anime.app.api.DirectLinkResponse;
 import com.loop_anime.app.api.model.Link;
 
 import java.util.List;
@@ -30,9 +32,13 @@ public class EpisodeLinksFragment extends DialogFragment{
     private int episodeId;
 
     public static final String EXTRA_EPISODE_ID = "EXTRA_EPISODE_ID";
+
     private ListView mListView;
 
-    private GetLinksFromEpisodes task;
+    private GetLinksFromEpisodes getLinksTask;
+
+    private GetDirectLinkTask getDirectLinkTask;
+
     private TextView mErrorView;
 
 
@@ -45,9 +51,9 @@ public class EpisodeLinksFragment extends DialogFragment{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_episode_links, null, false);
         mListView = (ListView) view.findViewById(R.id.list_links);
         mErrorView = (TextView) view.findViewById(R.id.error_text);
-        task = new GetLinksFromEpisodes();
+        getLinksTask = new GetLinksFromEpisodes();
         if (episodeId > 0) {
-            task.execute(episodeId);
+            getLinksTask.execute(episodeId);
         }
         return new AlertDialog.Builder(getActivity()).setTitle(R.string.episode_links_dialog_title)
                 .setView(view)
@@ -57,7 +63,7 @@ public class EpisodeLinksFragment extends DialogFragment{
     @Override
     public void onPause() {
         super.onPause();
-        task.cancel(true);
+        getLinksTask.cancel(true);
     }
 
     private class GetLinksFromEpisodes extends AsyncTask<Integer, Void, LinksAdapter> {
@@ -70,10 +76,8 @@ public class EpisodeLinksFragment extends DialogFragment{
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String url = linksAdapter.getItem(position).getLink();
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
+                        int serverId = linksAdapter.getItem(position).getId();
+                        startDirectLinkTask(serverId);
                     }
                 });
             } else {
@@ -95,6 +99,11 @@ public class EpisodeLinksFragment extends DialogFragment{
                 return linksList;
             }
         }
+    }
+
+    private void startDirectLinkTask(int linkId) {
+        getDirectLinkTask = new GetDirectLinkTask();
+        getDirectLinkTask.execute(linkId);
     }
 
     private void setErrorView() {
@@ -120,7 +129,7 @@ public class EpisodeLinksFragment extends DialogFragment{
             ViewHolder viewHolder = (ViewHolder) convertView.getTag();
             Link link = getItem(position);
             viewHolder.linkId = link.getId();
-            viewHolder.title.setText(link.getLink());
+            viewHolder.title.setText(link.getHoster());
             viewHolder.subtitle.setText(link.getSubtitlesLanguage());
             return convertView;
         }
@@ -135,5 +144,33 @@ public class EpisodeLinksFragment extends DialogFragment{
 
         }
 
+    }
+
+    private class GetDirectLinkTask extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected void onPostExecute(String directLink) {
+            super.onPostExecute(directLink);
+            if (directLink != null && directLink.length() > 0) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(directLink), "video/*");
+                getActivity().startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), getActivity().getString(R.string.error_load_address), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            String directLink = null;
+            try {
+                DirectLinkResponse.DirectLinkPayload payload = APIFactory.instence().getDirectLink(params[0]).getPayload();
+                directLink = payload.getDirectLinks().get(0).getDirectLink();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                return directLink;
+            }
+        }
     }
 }

@@ -13,5 +13,6 @@
     <string name="no_internet">No Internet Connection</string>
     <string name="episode_links_dialog_title">Choose streaming source</string>
     <string name="error_links_not_found">Links not found</string>
+    <string name="error_load_address">Fail to load address</string>
 
 </resources>

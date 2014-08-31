@@ -27,4 +27,7 @@ public interface API {
 
     @GET("/links/get-links.json")
     LinkResponse getLinks(@Query("episode") int episodeId);
+
+    @GET("/links/{id}.json")
+    DirectLinkResponse getDirectLink(@Path("id") int linkId);
 }
