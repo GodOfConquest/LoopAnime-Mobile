@@ -27,130 +27,148 @@ import static com.loop_anime.app.db.Table.AnimeEntry;
  */
 public class AnimesFragment extends AbstractFragment implements LoaderManager.LoaderCallbacks<Cursor>, OnRefreshListener {
 
-    private static final int ANIME_LOADER = 0;
-    private static final String[] ANIME_PROJECTION = new String[] {
-            AnimeEntry._ID,
-            AnimeEntry.COLUMN_SERVER_ID,
-            AnimeEntry.COLUMN_POSTER,
-            AnimeEntry.COLUMN_GENRES,
-            AnimeEntry.COLUMN_START_TIME,
-            AnimeEntry.COLUMN_END_TIME,
-            AnimeEntry.COLUMN_TITLE,
-            AnimeEntry.COLUMN_PLOT_SUMMERY,
-            AnimeEntry.COLUMN_RATING,
-            AnimeEntry.COLUMN_STATUS,
-            AnimeEntry.COLUMN_RUNNING_TIME,
-            AnimeEntry.COLUMN_RATING_UP,
-            AnimeEntry.COLUMN_RATING_DOWN,
-    };
+	private static final int ANIME_LOADER = 0;
 
-    public static final int COL_ID = 0;
-    public static final int COL_SERVER_ID = 1;
-    public static final int COL_POSTER = 2;
-    public static final int COL_GENRES = 3;
-    public static final int COL_START_TIME = 4;
-    public static final int COL_END_TIME = 5;
-    public static final int COL_TITLE = 6;
-    public static final int COL_PLOT_SUMMERY = 7;
-    public static final int COL_RATING = 8;
-    public static final int COL_STATUS = 9;
-    public static final int COL_RUNNING_TIME = 10;
-    public static final int COL_RATING_UP = 11;
-    public static final int COL_RATING_DOWN = 12;
-    private static final int ITEM_PER_PAGE = 10;
+	private static final String[] ANIME_PROJECTION = new String[]{
+			AnimeEntry._ID,
+			AnimeEntry.COLUMN_SERVER_ID,
+			AnimeEntry.COLUMN_POSTER,
+			AnimeEntry.COLUMN_GENRES,
+			AnimeEntry.COLUMN_START_TIME,
+			AnimeEntry.COLUMN_END_TIME,
+			AnimeEntry.COLUMN_TITLE,
+			AnimeEntry.COLUMN_PLOT_SUMMERY,
+			AnimeEntry.COLUMN_RATING,
+			AnimeEntry.COLUMN_STATUS,
+			AnimeEntry.COLUMN_RUNNING_TIME,
+			AnimeEntry.COLUMN_RATING_UP,
+			AnimeEntry.COLUMN_RATING_DOWN,
+	};
+
+	public static final int COL_ID = 0;
+
+	public static final int COL_SERVER_ID = 1;
+
+	public static final int COL_POSTER = 2;
+
+	public static final int COL_GENRES = 3;
+
+	public static final int COL_START_TIME = 4;
+
+	public static final int COL_END_TIME = 5;
+
+	public static final int COL_TITLE = 6;
+
+	public static final int COL_PLOT_SUMMERY = 7;
+
+	public static final int COL_RATING = 8;
+
+	public static final int COL_STATUS = 9;
+
+	public static final int COL_RUNNING_TIME = 10;
+
+	public static final int COL_RATING_UP = 11;
+
+	public static final int COL_RATING_DOWN = 12;
+
+	private static final int ITEM_PER_PAGE = 10;
 
 
-    private AnimesAdapter mAdapter;
+	private AnimesAdapter mAdapter;
 
-    private View mView;
-    private ListView mListView;
-    private PullToRefreshLayout mPullToRefreshLayout;
-    private View mEmptyView;
-    private EndlessScrollListener mEndlessListListener;
+	private View mView;
+
+	private ListView mListView;
+
+	private PullToRefreshLayout mPullToRefreshLayout;
+
+	private View mEmptyView;
+
+	private EndlessScrollListener mEndlessListListener;
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_animes, null, false);
-        mPullToRefreshLayout = (PullToRefreshLayout) mView.findViewById(R.id.ptr_layout);
-        mListView = (ListView) mView.findViewById(R.id.list_animes);
-        mEmptyView = mView.findViewById(android.R.id.empty);
-        mListView.setEmptyView(mEmptyView);
-        getLoaderManager().initLoader(ANIME_LOADER, null, this);
-        return mView;
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		mView = inflater.inflate(R.layout.fragment_animes, null, false);
+		mPullToRefreshLayout = (PullToRefreshLayout) mView.findViewById(R.id.ptr_layout);
+		mListView = (ListView) mView.findViewById(R.id.list_animes);
+		mEmptyView = mView.findViewById(android.R.id.empty);
+		mListView.setEmptyView(mEmptyView);
+		getLoaderManager().initLoader(ANIME_LOADER, null, this);
+		return mView;
+	}
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new AnimesAdapter(getActivity(), null, 0);
-        mListView.setAdapter(mAdapter);
+		mAdapter = new AnimesAdapter(getActivity(), null, 0);
+		mListView.setAdapter(mAdapter);
 
-        mEndlessListListener = new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                AnimeService.requestAnimes(getActivity(), page, ITEM_PER_PAGE ,mReceiver);
-                mPullToRefreshLayout.setRefreshing(true);
-            }
-        };
-        mListView.setOnScrollListener(mEndlessListListener);
-        ActionBarPullToRefresh.from(getActivity())
-                .allChildrenArePullable()
-                .listener(this)
-                .setup(mPullToRefreshLayout);
-    }
+		mEndlessListListener = new EndlessScrollListener() {
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				AnimeService.requestAnimes(getActivity(), page, ITEM_PER_PAGE, mReceiver);
+				mPullToRefreshLayout.setRefreshing(true);
+			}
+		};
+		mListView.setOnScrollListener(mEndlessListListener);
+		ActionBarPullToRefresh.from(getActivity())
+				.allChildrenArePullable()
+				.listener(this)
+				.setup(mPullToRefreshLayout);
+	}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        switch (i) {
-            case ANIME_LOADER:
-                AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
-                return new CursorLoader(
-                        getActivity(),
-                        AnimeEntry.CONTENT_URI,
-                        ANIME_PROJECTION,
-                        null,
-                        null,
-                        AnimeEntry._ID + " ASC"
-                );
-            default:
-                return null;
-        }
-    }
+	@Override
+	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+		switch (i) {
+			case ANIME_LOADER:
+				AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
+				return new CursorLoader(
+						getActivity(),
+						AnimeEntry.CONTENT_URI,
+						ANIME_PROJECTION,
+						null,
+						null,
+						AnimeEntry._ID + " ASC"
+				);
+			default:
+				return null;
+		}
+	}
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mAdapter.swapCursor(cursor);
-    }
+	@Override
+	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+		mAdapter.swapCursor(cursor);
+	}
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mAdapter.swapCursor(null);
-    }
+	@Override
+	public void onLoaderReset(Loader<Cursor> cursorLoader) {
+		mAdapter.swapCursor(null);
+	}
 
-    @Override
-    public void onRefreshStarted(View view) {
-        mEndlessListListener.reset();
-        AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
-    }
+	@Override
+	public void onRefreshStarted(View view) {
+		mEndlessListListener.reset();
+		AnimeService.requestAnimes(getActivity(), 1, ITEM_PER_PAGE, mReceiver);
+	}
 
-    @Override
-    public boolean enableReceiver() {
-        return true;
-    }
+	@Override
+	public boolean enableReceiver() {
+		return true;
+	}
 
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {
-        switch (resultCode) {
-            case ServiceReceiver.STATUS_ERROR:
-            case ServiceReceiver.STATUS_FINISHED:
-                mPullToRefreshLayout.setRefreshComplete();
-        }
-    }
+	@Override
+	public void onReceiveResult(int resultCode, Bundle resultData) {
+		switch (resultCode) {
+			case ServiceReceiver.STATUS_ERROR:
+			case ServiceReceiver.STATUS_FINISHED:
+				mPullToRefreshLayout.setRefreshComplete();
+		}
+	}
 }

@@ -12,22 +12,22 @@ import retrofit.http.Query;
  */
 public interface API {
 
-    @GET("/animes/list-animes.json")
-    AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
+	@GET("/animes/list-animes.json")
+	AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
 
-    @POST("/animes/{id}.json")
-    AnimeResponse animesByServerId(@Path("id") int serverId);
+	@POST("/animes/{id}.json")
+	AnimeResponse animesByServerId(@Path("id") int serverId);
 
-    @GET("/episodes/get-episodes.json")
-    EpisodeResponse episode(@Query("maxr") int limit, @Query("page") int page, @Query("typeEpisode") String type);
+	@GET("/episodes/get-episodes.json")
+	EpisodeResponse episode(@Query("maxr") int limit, @Query("page") int page, @Query("typeEpisode") String type);
 
-    @FormUrlEncoded
-    @POST("/episodes/list-episodes.json")
-    EpisodeResponse episode(@Field("anime") int animeId, @Field("season") int season);
+	@FormUrlEncoded
+	@POST("/episodes/list-episodes.json")
+	EpisodeResponse episode(@Field("anime") int animeId, @Field("season") int season);
 
-    @GET("/links/get-links.json")
-    LinkResponse getLinks(@Query("episode") int episodeId);
+	@GET("/links/get-links.json")
+	LinkResponse getLinks(@Query("episode") int episodeId);
 
-    @GET("/links/{id}.json")
-    DirectLinkResponse getDirectLink(@Path("id") int linkId);
+	@GET("/links/{id}.json")
+	DirectLinkResponse getDirectLink(@Path("id") int linkId);
 }

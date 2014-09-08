@@ -9,18 +9,18 @@ import java.util.List;
  */
 public class DirectLinkResponse {
 
-    private DirectLinkPayload payload;
+	private DirectLinkPayload payload;
 
-    public DirectLinkPayload getPayload() {
-        return payload;
-    }
+	public DirectLinkPayload getPayload() {
+		return payload;
+	}
 
-    public class DirectLinkPayload {
+	public class DirectLinkPayload {
 
-        private List<DirectLink> links;
+		private List<DirectLink> links;
 
-        public List<DirectLink> getDirectLinks() {
-            return links;
-        }
-    }
+		public List<DirectLink> getDirectLinks() {
+			return links;
+		}
+	}
 }

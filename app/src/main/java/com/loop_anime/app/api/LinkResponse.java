@@ -10,21 +10,21 @@ import java.util.List;
  */
 public class LinkResponse {
 
-    @SerializedName("payload")
-    LinkPayload payload;
+	@SerializedName("payload")
+	LinkPayload payload;
 
-    public LinkPayload getPayload() {
-        return payload;
-    }
+	public LinkPayload getPayload() {
+		return payload;
+	}
 
-    public class LinkPayload {
+	public class LinkPayload {
 
-        @SerializedName("links")
-        List<Link> links;
+		@SerializedName("links")
+		List<Link> links;
 
-        public List<Link> getLinks() {
-            return links;
-        }
+		public List<Link> getLinks() {
+			return links;
+		}
 
-    }
+	}
 }

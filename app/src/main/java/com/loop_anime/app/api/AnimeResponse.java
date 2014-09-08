@@ -10,18 +10,19 @@ import java.util.List;
  */
 public class AnimeResponse {
 
-    @SerializedName("payload")
-    AnimePayload payload;
+	@SerializedName("payload")
+	AnimePayload payload;
 
-    public AnimePayload getPayload() {
-        return payload;
-    }
+	public AnimePayload getPayload() {
+		return payload;
+	}
 
-    public class AnimePayload {
-        List<Anime> animes;
+	public class AnimePayload {
 
-        public List<Anime> getAnimes() {
-            return animes;
-        }
-    }
+		List<Anime> animes;
+
+		public List<Anime> getAnimes() {
+			return animes;
+		}
+	}
 }

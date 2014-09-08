@@ -9,21 +9,25 @@ import com.loop_anime.app.service.ServiceReceiver;
 /**
  * Created by yilun on 31/07/2014.
  */
-public abstract class AbstractFragment extends Fragment implements ServiceReceiver.Receiver{
-    ServiceReceiver mReceiver;
+public abstract class AbstractFragment extends Fragment implements ServiceReceiver.Receiver {
 
-    public abstract boolean enableReceiver();
+	ServiceReceiver mReceiver;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (enableReceiver()) {
-            mReceiver = new ServiceReceiver(new Handler());
-            mReceiver.setReceiver(this);
-        }
-    }
+	public abstract boolean enableReceiver();
 
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {};
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (enableReceiver()) {
+			mReceiver = new ServiceReceiver(new Handler());
+			mReceiver.setReceiver(this);
+		}
+	}
+
+	@Override
+	public void onReceiveResult(int resultCode, Bundle resultData) {
+	}
+
+	;
 
 }

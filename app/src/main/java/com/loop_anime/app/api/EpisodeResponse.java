@@ -10,20 +10,20 @@ import java.util.List;
  */
 public class EpisodeResponse {
 
-    @SerializedName("payload")
-    EpisodePayload payload;
+	@SerializedName("payload")
+	EpisodePayload payload;
 
-    public EpisodePayload getPayload() {
-        return payload;
-    }
+	public EpisodePayload getPayload() {
+		return payload;
+	}
 
-    public class EpisodePayload {
+	public class EpisodePayload {
 
-        List<Episode> episodes;
+		List<Episode> episodes;
 
-        public List<Episode> getEpisodes() {
-            return episodes;
-        }
+		public List<Episode> getEpisodes() {
+			return episodes;
+		}
 
-    }
+	}
 }

@@ -15,31 +15,34 @@ import com.loop_anime.app.util.BitmapLruCache;
  */
 public abstract class AbstractActivity extends Activity implements ServiceReceiver.Receiver {
 
-    private ImageLoader imageLoaderMemoryCache;
+	private ImageLoader imageLoaderMemoryCache;
 
-    private RequestQueue requestQueue;
+	private RequestQueue requestQueue;
 
-    public ServiceReceiver mReceiver;
+	public ServiceReceiver mReceiver;
 
-    public abstract boolean enableReceiver();
+	public abstract boolean enableReceiver();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestQueue = Volley.newRequestQueue(this);
-        if (enableReceiver()) {
-            mReceiver = new ServiceReceiver(new Handler());
-            mReceiver.setReceiver(this);
-        }
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestQueue = Volley.newRequestQueue(this);
+		if (enableReceiver()) {
+			mReceiver = new ServiceReceiver(new Handler());
+			mReceiver.setReceiver(this);
+		}
+	}
 
-    public ImageLoader getImageLoaderMemoryCache() {
-        if (imageLoaderMemoryCache == null)
-            imageLoaderMemoryCache = new ImageLoader(requestQueue, new BitmapLruCache());
-        return imageLoaderMemoryCache;
-    }
+	public ImageLoader getImageLoaderMemoryCache() {
+		if (imageLoaderMemoryCache == null)
+			imageLoaderMemoryCache = new ImageLoader(requestQueue, new BitmapLruCache());
+		return imageLoaderMemoryCache;
+	}
 
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {};
+	@Override
+	public void onReceiveResult(int resultCode, Bundle resultData) {
+	}
+
+	;
 
 }

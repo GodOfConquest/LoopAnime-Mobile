@@ -20,56 +20,61 @@ import com.loop_anime.app.util.ImageUtil;
  */
 public class AnimesAdapter extends CursorAdapter implements View.OnClickListener {
 
-    private Context context;
+	private Context context;
 
-    public AnimesAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
-        this.context = context;
-    }
+	public AnimesAdapter(Context context, Cursor c, int flags) {
+		super(context, c, flags);
+		this.context = context;
+	}
 
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        View view = LayoutInflater.from(context).inflate(R.layout.animes_list_item_row, null, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
-        view.setTag(viewHolder);
-        return view;
-    }
+	@Override
+	public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+		View view = LayoutInflater.from(context).inflate(R.layout.animes_list_item_row, null, false);
+		ViewHolder viewHolder = new ViewHolder(view);
+		viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
+		view.setTag(viewHolder);
+		return view;
+	}
 
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        ViewHolder viewHolder = (ViewHolder) view.getTag();
-        String titleStr = cursor.getString(AnimesFragment.COL_TITLE);
-        viewHolder.titleText.setText(titleStr);
-        viewHolder.subtitleText.setText(cursor.getString(AnimesFragment.COL_START_TIME));
-        String imageUrlStr = cursor.getString(AnimesFragment.COL_POSTER);
-        imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
-        viewHolder.posterImage.setImageUrl(imageUrlStr, ((AbstractActivity)context).getImageLoaderMemoryCache());
-        viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
-        viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
-        view.setOnClickListener(this);
-    }
+	@Override
+	public void bindView(View view, Context context, Cursor cursor) {
+		ViewHolder viewHolder = (ViewHolder) view.getTag();
+		String titleStr = cursor.getString(AnimesFragment.COL_TITLE);
+		viewHolder.titleText.setText(titleStr);
+		viewHolder.subtitleText.setText(cursor.getString(AnimesFragment.COL_START_TIME));
+		String imageUrlStr = cursor.getString(AnimesFragment.COL_POSTER);
+		imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
+		viewHolder.posterImage.setImageUrl(imageUrlStr, ((AbstractActivity) context).getImageLoaderMemoryCache());
+		viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
+		viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);
+		view.setOnClickListener(this);
+	}
 
-    @Override
-    public void onClick(View view) {
-        ViewHolder viewHolder = (ViewHolder) view.getTag();
-        AnimeActivity.startActivity(context, viewHolder.serverId, view);
-    }
+	@Override
+	public void onClick(View view) {
+		ViewHolder viewHolder = (ViewHolder) view.getTag();
+		AnimeActivity.startActivity(context, viewHolder.serverId, view);
+	}
 
 
-    public static class ViewHolder {
-        int serverId;
-        NetworkImageView posterImage;
-        TextView titleText;
-        TextView subtitleText;
-        TextView statusText;
+	public static class ViewHolder {
 
-        public ViewHolder(View view) {
-            posterImage = (NetworkImageView) view.findViewById(R.id.image_anime_poster);
-            titleText = (TextView) view.findViewById(R.id.text_anime_title);
-            subtitleText = (TextView) view.findViewById(R.id.text_anime_description);
-            statusText = (TextView) view.findViewById(R.id.text_anime_status);
-        }
-    }
+		int serverId;
+
+		NetworkImageView posterImage;
+
+		TextView titleText;
+
+		TextView subtitleText;
+
+		TextView statusText;
+
+		public ViewHolder(View view) {
+			posterImage = (NetworkImageView) view.findViewById(R.id.image_anime_poster);
+			titleText = (TextView) view.findViewById(R.id.text_anime_title);
+			subtitleText = (TextView) view.findViewById(R.id.text_anime_description);
+			statusText = (TextView) view.findViewById(R.id.text_anime_status);
+		}
+	}
 
 }

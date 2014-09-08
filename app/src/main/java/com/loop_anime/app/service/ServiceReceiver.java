@@ -9,7 +9,7 @@ import android.os.ResultReceiver;
  */
 public class ServiceReceiver extends ResultReceiver {
 
-    public static final int STATUS_RUNNING = 101;
+	public static final int STATUS_RUNNING = 101;
 
 	public static final int STATUS_FINISHED = 102;
 
@@ -29,24 +29,25 @@ public class ServiceReceiver extends ResultReceiver {
 
 	public static final String EXTRA_ERROR_CODE = "EXTRA_ERROR_CODE";
 
-    private Receiver mReceiver;
+	private Receiver mReceiver;
 
-    public ServiceReceiver(Handler handler) {
-        super(handler);
-    }
+	public ServiceReceiver(Handler handler) {
+		super(handler);
+	}
 
-    public interface Receiver {
-        public void onReceiveResult(int resultCode, Bundle resultData);
-    }
+	public interface Receiver {
 
-    public void setReceiver(Receiver mReceiver) {
-        this.mReceiver = mReceiver;
-    }
+		public void onReceiveResult(int resultCode, Bundle resultData);
+	}
 
-    @Override
-    protected void onReceiveResult(int resultCode, Bundle resultData) {
-        if (mReceiver != null) {
-            mReceiver.onReceiveResult(resultCode, resultData);
-        }
-    }
+	public void setReceiver(Receiver mReceiver) {
+		this.mReceiver = mReceiver;
+	}
+
+	@Override
+	protected void onReceiveResult(int resultCode, Bundle resultData) {
+		if (mReceiver != null) {
+			mReceiver.onReceiveResult(resultCode, resultData);
+		}
+	}
 }
