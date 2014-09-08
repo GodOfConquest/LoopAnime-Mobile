@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ptr_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/ptr_layout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/list_animes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+	<ListView
+		android:id="@+id/list_animes"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		/>
 
-    <include layout="@layout/empty_view" />
+	<include layout="@layout/empty_view"/>
 
 </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>

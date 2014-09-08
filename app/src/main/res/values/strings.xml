@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Loop-anime</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="lorem_ipsum_title">Lorem ipsum</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, docendi fastidii has cu, sit ad iusto fierent reprimique. Ea oblique deterruisset nam, ex probo brute vel. Qui duis illud nemore cu. Nec ad maluisset complectitur, tollit impedit vix in, sit atomorum salutandi liberavisse ei. Ex viris semper nam</string>
-    <string name="empty_view_text">NOTHING HERE</string>
-    <string name="title_activity_anime">AnimeActivity</string>
-    <string name="drawer_open">drawer open</string>
-    <string name="drawer_close">drawer close</string>
-    <string name="no_internet">No Internet Connection</string>
-    <string name="episode_links_dialog_title">Choose streaming source</string>
-    <string name="error_links_not_found">Links not found</string>
-    <string name="error_load_address">Fail to load address</string>
+	<string name="app_name">Loop-anime</string>
+	<string name="hello_world">Hello world!</string>
+	<string name="action_settings">Settings</string>
+	<string name="lorem_ipsum_title">Lorem ipsum</string>
+	<string name="lorem_ipsum">Lorem ipsum dolor sit amet, docendi fastidii has cu, sit ad iusto fierent reprimique. Ea oblique deterruisset nam, ex probo brute vel. Qui duis illud nemore cu. Nec ad maluisset complectitur, tollit impedit vix in, sit atomorum salutandi liberavisse ei. Ex viris semper nam</string>
+	<string name="empty_view_text">NOTHING HERE</string>
+	<string name="title_activity_anime">AnimeActivity</string>
+	<string name="drawer_open">drawer open</string>
+	<string name="drawer_close">drawer close</string>
+	<string name="no_internet">No Internet Connection</string>
+	<string name="episode_links_dialog_title">Choose streaming source</string>
+	<string name="error_links_not_found">Links not found</string>
+	<string name="error_load_address">Fail to load address</string>
 
 </resources>
