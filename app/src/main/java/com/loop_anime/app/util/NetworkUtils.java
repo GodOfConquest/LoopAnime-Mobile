@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 /**
  * Created by allan on 14/7/28.
  */
-public class NetworkUtil {
+public class NetworkUtils {
 
 	public static boolean isNetworkConnected(Context context) {
 		ConnectivityManager cm =

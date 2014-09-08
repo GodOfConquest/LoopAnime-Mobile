@@ -18,8 +18,8 @@ import com.loop_anime.app.service.AnimeService;
 import com.loop_anime.app.ui.activity.AbstractActivity;
 import com.loop_anime.app.ui.listener.NotifyingScrollViewListener;
 import com.loop_anime.app.ui.view.NotifyingScrollView;
-import com.loop_anime.app.util.ImageUtil;
-import com.loop_anime.app.util.UiUtil;
+import com.loop_anime.app.util.ImageUtils;
+import com.loop_anime.app.util.UiUtils;
 
 /**
  * Created by allan on 14/7/28.
@@ -78,7 +78,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
 		if (animeServerId == -1) {
 			throw new IllegalArgumentException("Anime Fragment don't receive Anime Server Id");
 		}
-		actionbarHeight = UiUtil.getActionBarHeight(getActivity());
+		actionbarHeight = UiUtils.getActionBarHeight(getActivity());
 		getLoaderManager().initLoader(LOAD_ANIME_SERVER_ID, null, this);
 	}
 
@@ -128,7 +128,7 @@ public class AnimeFragment extends AbstractFragment implements LoaderManager.Loa
 		switch (cursorLoader.getId()) {
 			case LOAD_ANIME_SERVER_ID:
 				if (cursor.moveToFirst()) {
-					mPosterImageView.setImageUrl(ImageUtil.getFullImageUrl(cursor.getString(0)),
+					mPosterImageView.setImageUrl(ImageUtils.getFullImageUrl(cursor.getString(0)),
 							((AbstractActivity) getActivity()).getImageLoaderMemoryCache());
 					mTitleView.setText(cursor.getString(1));
 					mDescriptionView.setText(cursor.getString(2));

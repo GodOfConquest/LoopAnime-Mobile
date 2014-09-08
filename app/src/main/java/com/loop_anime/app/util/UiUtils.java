@@ -6,7 +6,7 @@ import android.util.TypedValue;
 /**
  * Created by allan on 14/8/14.
  */
-public class UiUtil {
+public class UiUtils {
 
 	public static int getActionBarHeight(Context context) {
 		TypedValue tv = new TypedValue();

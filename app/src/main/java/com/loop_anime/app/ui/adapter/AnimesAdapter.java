@@ -13,7 +13,7 @@ import com.loop_anime.app.R;
 import com.loop_anime.app.ui.activity.AbstractActivity;
 import com.loop_anime.app.ui.activity.AnimeActivity;
 import com.loop_anime.app.ui.fragment.AnimesFragment;
-import com.loop_anime.app.util.ImageUtil;
+import com.loop_anime.app.util.ImageUtils;
 
 /**
  * Created by allan on 14/7/27.
@@ -43,7 +43,7 @@ public class AnimesAdapter extends CursorAdapter implements View.OnClickListener
 		viewHolder.titleText.setText(titleStr);
 		viewHolder.subtitleText.setText(cursor.getString(AnimesFragment.COL_START_TIME));
 		String imageUrlStr = cursor.getString(AnimesFragment.COL_POSTER);
-		imageUrlStr = ImageUtil.getFullImageUrl(imageUrlStr);
+		imageUrlStr = ImageUtils.getFullImageUrl(imageUrlStr);
 		viewHolder.posterImage.setImageUrl(imageUrlStr, ((AbstractActivity) context).getImageLoaderMemoryCache());
 		viewHolder.statusText.setText(cursor.getString(AnimesFragment.COL_STATUS));
 		viewHolder.serverId = cursor.getInt(AnimesFragment.COL_SERVER_ID);

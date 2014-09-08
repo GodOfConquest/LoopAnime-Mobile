@@ -9,7 +9,7 @@ import android.util.Log;
 import com.loop_anime.app.R;
 import com.loop_anime.app.api.API;
 import com.loop_anime.app.api.APIFactory;
-import com.loop_anime.app.util.NetworkUtil;
+import com.loop_anime.app.util.NetworkUtils;
 
 /**
  * Created by allan on 14/7/28.
@@ -41,7 +41,7 @@ abstract public class AbstractIntentService extends IntentService {
 			final ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
 			Bundle bundle = new Bundle();
 			receiver.send(ServiceReceiver.STATUS_RUNNING, bundle);
-			if (NetworkUtil.isNetworkConnected(this)) {
+			if (NetworkUtils.isNetworkConnected(this)) {
 				try {
 					this.onHandleAPIIntent(intent);
 					receiver.send(ServiceReceiver.STATUS_FINISHED, bundle);
@@ -55,7 +55,7 @@ abstract public class AbstractIntentService extends IntentService {
 				receiver.send(ServiceReceiver.STATUS_ERROR, bundle);
 			}
 		} else {
-			if (NetworkUtil.isNetworkConnected(this)) {
+			if (NetworkUtils.isNetworkConnected(this)) {
 				try {
 					this.onHandleAPIIntent(intent);
 				} catch (Exception e) {
