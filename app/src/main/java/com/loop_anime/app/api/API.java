@@ -12,6 +12,25 @@ import retrofit.http.Query;
  */
 public interface API {
 
+	/**
+	 * Auth
+	 */
+	@GET("/token")
+	TokenResponse emailLogin(
+			@Query("client_id") String clientId,
+			@Query("client_secret") String clientSecret,
+			@Query("grant_type") String grantType,
+			@Query("username") String username,
+			@Query("password") String password);
+
+	@GET("/token")
+	TokenResponse refreshToken(
+			@Query("client_id") String clientId,
+			@Query("client_secret") String clientSecret,
+			@Query("grant_type") String grantType,
+			@Query("refresh_token") String refreshToken);
+
+
 	@GET("/animes/list-animes.json")
 	AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
 

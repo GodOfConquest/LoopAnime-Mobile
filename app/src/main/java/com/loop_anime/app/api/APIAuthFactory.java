@@ -6,11 +6,11 @@ import retrofit.RestAdapter;
 import retrofit.android.AndroidLog;
 
 /**
- * Created by allan on 14/7/28.
+ * Created by allan on 14-9-10.
  */
-public class APIFactory {
+public class APIAuthFactory {
 
-	public static String BASE_URL = "http://www.loop-anime.com:8080/api";
+	public static String BASE_URL = "http://www.loop-anime.com:8080/oauth";
 
 	private static API instance;
 
@@ -27,7 +27,7 @@ public class APIFactory {
 	}
 
 	private static String getVersion() {
-		return "/v" + String.valueOf(Settings.Api.API_VERSION);
+		return "/v" + String.valueOf(Settings.Api.API_AUTH_VERSION);
 	}
 
 }

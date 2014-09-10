@@ -27,8 +27,6 @@ public class EpisodeService extends AbstractIntentService {
 
 	private static final String EXTRA_TYPE_EPISODE = "EXTRA_TYPE_EPISODE";
 
-	private static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
-
 	private static final String EXTRA_SERVER_ID = "EXTRA_SERVER_ID";
 
 	private enum REQUESTS {EPISODE_BY_SERVER_ID, EPISODE, GET_LINK}
@@ -80,7 +78,7 @@ public class EpisodeService extends AbstractIntentService {
 
 	private void getLink(int episodeId) {
 		if (episodeId > 0) {
-			LinkResponse linkResponse = APIFactory.instence().getLinks(episodeId);
+			LinkResponse linkResponse = APIFactory.instance().getLinks(episodeId);
 			List<Link> links = linkResponse.getPayload().getLinks();
 			//TODO link provider
 		}

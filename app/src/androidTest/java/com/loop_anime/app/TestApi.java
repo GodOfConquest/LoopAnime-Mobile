@@ -21,7 +21,7 @@ import java.util.List;
 public class TestApi extends AndroidTestCase {
 
 	public void testAnime() throws Throwable {
-		AnimeResponse animesResponse = APIFactory.instence().animes(3, 10);
+		AnimeResponse animesResponse = APIFactory.instance().animes(3, 10);
 		List<Anime> animes = animesResponse.getPayload().getAnimes();
 		for (Anime anime : animes) {
 			Log.v("EPISODE API", String.valueOf(anime.getTotalSeasons()));
@@ -30,7 +30,7 @@ public class TestApi extends AndroidTestCase {
 	}
 
 	public void testEpisode() throws Throwable {
-		EpisodeResponse recent = APIFactory.instence().episode(20, 0, null);
+		EpisodeResponse recent = APIFactory.instance().episode(20, 0, null);
 		List<Episode> episodes = recent.getPayload().getEpisodes();
 		for (Episode episode : episodes) {
 			Log.v("EPISODE API", episode.getAnimeInfo().getAnimeTitle());
@@ -40,7 +40,7 @@ public class TestApi extends AndroidTestCase {
 
 
 	public void testEpisodeByAnimeId() throws Throwable {
-		EpisodeResponse recent = APIFactory.instence().episode(29, 0);
+		EpisodeResponse recent = APIFactory.instance().episode(29, 0);
 		List<Episode> episodes = recent.getPayload().getEpisodes();
 		for (Episode episode : episodes) {
 			Log.v("EPISODE API", String.valueOf(episode.getSeasonInfo().getSeason()));
@@ -49,7 +49,7 @@ public class TestApi extends AndroidTestCase {
 	}
 
 	public void testGetLink() throws Throwable {
-		LinkResponse linkResponse = APIFactory.instence().getLinks(337);
+		LinkResponse linkResponse = APIFactory.instance().getLinks(337);
 		List<Link> links = linkResponse.getPayload().getLinks();
 		for (Link link : links) {
 			Log.v("Get Link API", link.getLink());

@@ -22,8 +22,6 @@ public class AnimeService extends AbstractIntentService {
 
 	private static final String EXTRA_LIMIT = "EXTRA_LIMIT";
 
-	private static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
-
 	private static final String EXTRA_SERVER_ID = "EXTRA_SERVER_ID";
 
 	public AnimeService() {

@@ -1,5 +1,7 @@
 package com.loop_anime.app.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -12,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.loop_anime.app.R;
+import com.loop_anime.app.User;
+import com.loop_anime.app.service.UserService;
 import com.loop_anime.app.ui.fragment.AnimesFragment;
 import com.loop_anime.app.ui.fragment.EpisodesFragment;
 
@@ -31,6 +35,11 @@ public class MainActivity extends AbstractActivity implements ListView.OnItemCli
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private String mTitle;
+
+	public static void startActivity(Context context) {
+		Intent intent = new Intent(context, MainActivity.class);
+		context.startActivity(intent);
+	}
 
 	@Override
 	public boolean enableReceiver() {
@@ -74,6 +83,16 @@ public class MainActivity extends AbstractActivity implements ListView.OnItemCli
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+		User user = User.instance(this);
+		if (!user.isLoggedIn()) {
+			LoginActivity.startActivity(this);
+			finish();
+		}
+	}
+
+	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		// Sync the toggle state after onRestoreInstanceState has occurred.
@@ -102,8 +121,14 @@ public class MainActivity extends AbstractActivity implements ListView.OnItemCli
 			return true;
 		}
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		switch (id) {
+			case R.id.action_settings:
+				return true;
+			case R.id.action_logout:
+				UserService.logout(this, mReceiver);
+				LoginActivity.startActivity(this);
+				finish();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

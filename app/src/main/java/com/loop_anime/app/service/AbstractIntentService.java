@@ -23,6 +23,8 @@ abstract public class AbstractIntentService extends IntentService {
 
 	public static final String EXTRA_RECEIVER = "EXTRA_RECEIVER";
 
+	protected static final String EXTRA_REQUEST_TYPE = "EXTRA_REQUEST_TYPE";
+
 	public AbstractIntentService(String name) {
 		super(name);
 	}
@@ -31,7 +33,7 @@ abstract public class AbstractIntentService extends IntentService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		api = APIFactory.instence();
+		api = APIFactory.instance();
 	}
 
 

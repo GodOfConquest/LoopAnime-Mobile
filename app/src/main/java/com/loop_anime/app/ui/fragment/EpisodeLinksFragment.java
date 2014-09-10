@@ -90,7 +90,7 @@ public class EpisodeLinksFragment extends DialogFragment {
 			LinksAdapter linksList = null;
 			try {
 				if (params.length > 0) {
-					List<Link> links = APIFactory.instence().getLinks(params[0]).getPayload().getLinks();
+					List<Link> links = APIFactory.instance().getLinks(params[0]).getPayload().getLinks();
 					linksList = new LinksAdapter(getActivity(), R.layout.link_item_row, links);
 				}
 			} catch (Exception e) {
@@ -164,7 +164,7 @@ public class EpisodeLinksFragment extends DialogFragment {
 		protected String doInBackground(Integer... params) {
 			String directLink = null;
 			try {
-				DirectLinkResponse.DirectLinkPayload payload = APIFactory.instence().getDirectLink(params[0]).getPayload();
+				DirectLinkResponse.DirectLinkPayload payload = APIFactory.instance().getDirectLink(params[0]).getPayload();
 				directLink = payload.getDirectLinks().get(0).getDirectLink();
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="com.loop_anime.app">
+<manifest
+	package="com.loop_anime.app"
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -20,6 +21,21 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name=".ui.activity.LoginActivity"
+			android:screenOrientation="portrait">
+		</activity>
+
+		<activity
+			android:name=".ui.activity.AnimeActivity"
+			android:label="@string/title_activity_anime"
+			android:parentActivityName=".ui.activity.MainActivity"
+			android:theme="@style/AppTheme.TransparentActionBar">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="com.loop_anime.app.ui.activity.MainActivity"/>
+		</activity>
+
 		<provider
 			android:name=".provider.AnimeProvider"
 			android:authorities="com.loop_anime.app.provider.AnimeProvider"/>
@@ -27,18 +43,10 @@
 			android:name=".provider.EpisodeProvider"
 			android:authorities="com.loop_anime.app.provider.EpisodeProvider"/>
 
+		<service android:name=".service.UserService"/>
 		<service android:name=".service.AnimeService"/>
 		<service android:name=".service.EpisodeService"/>
 
-		<activity
-			android:name=".ui.activity.AnimeActivity"
-			android:label="@string/title_activity_anime"
-			android:theme="@style/AppTheme.TransparentActionBar"
-			android:parentActivityName=".ui.activity.MainActivity">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.loop_anime.app.ui.activity.MainActivity"/>
-		</activity>
 	</application>
 
 </manifest>
