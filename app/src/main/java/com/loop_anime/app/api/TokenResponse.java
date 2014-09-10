@@ -11,7 +11,7 @@ public class TokenResponse {
 	private String accessToken;
 
 	@SerializedName("expires_in")
-	private int exprireIn;
+	private int expiredIn;
 
 	@SerializedName("token_type")
 	private String tokenType;
@@ -29,12 +29,12 @@ public class TokenResponse {
 		this.accessToken = accessToken;
 	}
 
-	public int getExprireIn() {
-		return exprireIn;
+	public int getExpiredIn() {
+		return expiredIn;
 	}
 
-	public void setExprireIn(int exprireIn) {
-		this.exprireIn = exprireIn;
+	public void setExpiredIn(int expiredIn) {
+		this.expiredIn = expiredIn;
 	}
 
 	public String getTokenType() {

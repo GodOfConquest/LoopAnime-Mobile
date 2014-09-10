@@ -7,6 +7,7 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 import com.loop_anime.app.R;
+import com.loop_anime.app.User;
 import com.loop_anime.app.api.API;
 import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.util.NetworkUtils;
@@ -39,6 +40,7 @@ abstract public class AbstractIntentService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
+		updateTokenIfNecessary();
 		if (intent.hasExtra(EXTRA_RECEIVER)) {
 			final ResultReceiver receiver = intent.getParcelableExtra(EXTRA_RECEIVER);
 			Bundle bundle = new Bundle();
@@ -65,6 +67,22 @@ abstract public class AbstractIntentService extends IntentService {
 				}
 			} else {
 				Log.e(LOG_TAG, "No Internet connection; Service exited.");
+			}
+		}
+	}
+
+	private void updateTokenIfNecessary() {
+		if (!(this instanceof UserService)
+				&& User.instance(getBaseContext()).isLoggedIn()
+				&& User.instance(getBaseContext()).getTokenExpireTime() <= System.currentTimeMillis() / 1000) {
+			try {
+				UserService.requestRefreshToken(
+						getBaseContext(),
+						User.instance(getBaseContext()).getRefreshToken(),
+						null
+				);
+			} catch (Exception e) {
+				Log.e(LOG_TAG, "Failed to refresh token: " + e.toString());
 			}
 		}
 	}

@@ -95,7 +95,8 @@ public class UserService extends AbstractIntentService {
 		User user = User.instance(this);
 		user.setAccessToken(response.getAccessToken());
 		user.setRefreshToken(response.getRefreshToken());
-		user.setTokenExpiredIn(response.getExprireIn());
+		user.setTokenExpiredIn(response.getExpiredIn());
+		user.save(this);
 	}
 
 	private void logout() {

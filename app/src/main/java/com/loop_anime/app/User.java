@@ -55,7 +55,7 @@ public class User {
 	}
 
 	public void setTokenExpiredIn(int tokenExpireTime) {
-		this.tokenExpireTime = (int) System.currentTimeMillis() / 1000 + tokenExpireTime;
+		this.tokenExpireTime = (int) (System.currentTimeMillis() / 1000) + tokenExpireTime;
 	}
 
 	public void setTokenExpireTime(int tokenExpireTime) {
@@ -67,7 +67,7 @@ public class User {
 	}
 
 	public void save(Context context) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences preferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(USER_ACCESS_TOKEN, accessToken);
 		editor.putString(USER_REFRESH_TOKEN, refreshToken);
@@ -76,16 +76,20 @@ public class User {
 	}
 
 	public void load(Context context) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences preferences = getSharedPreferences(context);
 		accessToken = preferences.getString(USER_ACCESS_TOKEN, "");
 		refreshToken = preferences.getString(USER_REFRESH_TOKEN, "");
 		tokenExpireTime = preferences.getInt(USER_TOKEN_EXPIRE_TIME, 0);
 	}
 
 	public void clean(Context context) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences preferences = getSharedPreferences(context);
 		preferences.edit().clear().commit();
 		//load empty user
 		load(context);
+	}
+
+	private SharedPreferences getSharedPreferences(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context);
 	}
 }
