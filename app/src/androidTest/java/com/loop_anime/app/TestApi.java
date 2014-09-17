@@ -21,7 +21,7 @@ import java.util.List;
 public class TestApi extends AndroidTestCase {
 
 	public void testAnime() throws Throwable {
-		AnimeResponse animesResponse = APIFactory.instance().animes(3, 10);
+		AnimeResponse animesResponse = APIFactory.instance().animes(User.instance(getContext()).getAccessToken(), 3, 10);
 		List<Anime> animes = animesResponse.getPayload().getAnimes();
 		for (Anime anime : animes) {
 			Log.v("EPISODE API", String.valueOf(anime.getTotalSeasons()));

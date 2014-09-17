@@ -31,8 +31,10 @@ public interface API {
 			@Query("refresh_token") String refreshToken);
 
 
-	@GET("/animes/list-animes.json")
-	AnimeResponse animes(@Query("page") int page, @Query("maxr") int limit);
+	@GET("/animes.json")
+	AnimeResponse animes(
+			@Query("access_token") String accessToken,
+			@Query("page") int page, @Query("maxr") int limit);
 
 	@POST("/animes/{id}.json")
 	AnimeResponse animesByServerId(@Path("id") int serverId);

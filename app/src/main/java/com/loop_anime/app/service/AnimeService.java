@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
+import com.loop_anime.app.User;
 import com.loop_anime.app.api.model.Anime;
 
 import java.util.List;
@@ -70,7 +71,8 @@ public class AnimeService extends AbstractIntentService {
 	}
 
 	private void requestAnimes(int page, int limit) {
-		List<Anime> animes = api.animes(page, limit).getPayload().getAnimes();
+		User user = User.instance(this);
+		List<Anime> animes = api.animes(user.getAccessToken(), page, limit).getPayload().getAnimes();
 		if (page <= 1) {
 			getContentResolver().delete(AnimeEntry.CONTENT_URI, null, null);
 		}
