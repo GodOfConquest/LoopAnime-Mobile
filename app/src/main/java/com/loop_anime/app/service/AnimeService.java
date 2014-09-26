@@ -64,7 +64,8 @@ public class AnimeService extends AbstractIntentService {
 	}
 
 	private void requestAnimeWithServerId(int serverId) {
-		List<Anime> animes = api.animesByServerId(serverId).getPayload().getAnimes();
+		User user = User.instance(this);
+		List<Anime> animes = api.animesByServerId(user.getAccessToken(), serverId).getPayload().getAnimes();
 		Anime anime = animes.get(0);
 		ContentValues values = getAnimeContentValues(anime);
 		getContentResolver().insert(AnimeEntry.CONTENT_URI, values);
