@@ -97,10 +97,10 @@ public class LoginActivity extends AbstractActivity implements View.OnClickListe
 
 	private void setEmailLoginButtonLoading(boolean loading) {
 		if (loading) {
-			mEmailLoginButton.setVisibility(View.GONE);
+			mEmailLoginButton.setClickable(false);
 			mEmailLoadingProgressBar.setVisibility(View.VISIBLE);
 		} else {
-			mEmailLoginButton.setVisibility(View.VISIBLE);
+			mEmailLoginButton.setClickable(true);
 			mEmailLoadingProgressBar.setVisibility(View.GONE);
 		}
 	}

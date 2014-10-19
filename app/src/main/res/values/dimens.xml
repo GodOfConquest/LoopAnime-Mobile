@@ -15,7 +15,7 @@
 	<dimen name="space_massive">72dp</dimen>
 
 	<!--buttons-->
-	<dimen name="button_height">36dp</dimen>
+	<dimen name="button_height">48dp</dimen>
 	<dimen name="button_minimum_width">88dp</dimen>
 
 	<!-- Dimen for anime list view -->
