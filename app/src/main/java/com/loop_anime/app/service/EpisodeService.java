@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
+import com.loop_anime.app.User;
 import com.loop_anime.app.api.APIFactory;
 import com.loop_anime.app.api.EpisodeResponse;
 import com.loop_anime.app.api.LinkResponse;
@@ -62,10 +63,11 @@ public class EpisodeService extends AbstractIntentService {
 
 
 	private void getEpisodes(int maxr, int page, String typeEpisode) {
+		User user = User.instance(this);
 		if (page <= 1) {
 			getContentResolver().delete(EpisodeEntry.CONTENT_URI, null, null);
 		}
-		EpisodeResponse episodeResponse = api.episode(maxr, page, typeEpisode);
+		EpisodeResponse episodeResponse = api.episode(user.getAccessToken(), maxr, page, typeEpisode);
 		List<Episode> episodes = episodeResponse.getPayload().getEpisodes();
 		ContentValues[] contentValues = new ContentValues[episodes.size()];
 		for (int i = 0; i < episodes.size(); i++) {

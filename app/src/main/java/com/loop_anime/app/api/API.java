@@ -36,11 +36,15 @@ public interface API {
 			@Query("access_token") String accessToken,
 			@Query("page") int page, @Query("maxr") int limit);
 
-	@POST("/animes/{id}.json")
-	AnimeResponse animesByServerId(@Path("id") int serverId);
+	@GET("/animes/{id}.json")
+	AnimeResponse animesByServerId(
+			@Query("access_token") String accessToken,
+			@Query("id") int serverId);
 
-	@GET("/episodes/get-episodes.json")
-	EpisodeResponse episode(@Query("maxr") int limit, @Query("page") int page, @Query("typeEpisode") String type);
+	@GET("/episodes.json")
+	EpisodeResponse episode(
+			@Query("access_token") String accessToken,
+			@Query("maxr") int limit, @Query("page") int page, @Query("typeEpisode") String type);
 
 	@FormUrlEncoded
 	@POST("/episodes/list-episodes.json")
